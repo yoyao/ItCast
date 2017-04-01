@@ -21,9 +21,21 @@
     <ClCompile Include="str_insert.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
+    <ClCompile Include="SouthAir.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="memwatch.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="str_insert.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="southair.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="memwatch.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>
