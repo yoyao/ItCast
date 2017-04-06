@@ -19,4 +19,20 @@
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="dlllib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="staticlib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="dlllib.lib">
+      <Filter>资源文件</Filter>
+    </Library>
+    <Library Include="staticlib.lib">
+      <Filter>资源文件</Filter>
+    </Library>
+  </ItemGroup>
 </Project>

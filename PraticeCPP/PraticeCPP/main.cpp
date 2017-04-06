@@ -4,8 +4,15 @@
 #include<stdlib.h>
 #include<iostream>
 #include<fstream>
+#include<Windows.h>
+#include<vector>
+#include"dlllib.h"
+#include"staticlib.h"
 
 using namespace std;
+
+#pragma comment(lib,"./staticlib.lib")
+#pragma comment(lib,"./dlllib.dll")
 
 typedef struct _linknode LinkNode;
 
@@ -106,20 +113,187 @@ LinkNode* IsIntersect(LinkNode* head1, LinkNode* head2)
 }
 
 
+LinkNode* DoReverse(LinkNode* front, LinkNode* back)
+{
+	LinkNode* record = NULL;
+	if (back->Next != NULL)
+	{
+		record=DoReverse(back, back->Next);
+	}
+	if (back->Next == NULL)
+	{
+		record = back;
+	} 
+	back->Next = front;
+	front->Next = NULL;
+	
+	
+	return record;
+}
+//递归实现链表的逆置
+void RecursionReverse(LinkNode* Head)
+{
+	if (Head == NULL || Head->Next == NULL || Head->Next->Next == NULL)
+	{
+		return;
+	}
 
+	LinkNode* newhead=DoReverse(Head->Next, Head->Next->Next);
+	Head->Next = newhead;
+}
+
+//是否有环
+LinkNode* LinkListIsLoop(LinkNode* Head)
+{
+	LinkNode* sign = NULL;
+	if (Head == NULL || Head->Next == NULL)
+	{
+		return sign;
+	}
+	LinkNode* Slow = Head->Next;
+	LinkNode* Fast = Head->Next;
+
+	while (NULL != Fast->Next&&Slow != NULL)
+	{
+		Slow = Slow->Next;
+		Fast = Fast->Next->Next;
+		if (Slow == Fast)
+		{
+			sign = Fast;
+			break;
+		}
+		/*//此两条语句可以放上面也可以放下面，放上面可以少一次循环。
+		Slow = Slow->Next;
+		Fast = Fast->Next->Next;
+		*/
+	}
+
+
+	return sign;
+}
+
+
+int LinkListLoopLength(LinkNode* Head)
+{
+	int len = 0;
+	LinkNode* loop=LinkListIsLoop(Head);
+	if (loop == NULL)
+	{
+		return 0;
+	}
+
+
+	LinkNode* curloop = loop->Next;
+	while (curloop != loop)
+	{
+		++len;
+		curloop = curloop->Next;
+	}
+
+	return len;
+}
+
+/*
+那么在有环的基础上，怎么找到这个环的入口呢，一般网上也会给出解释，可能是我的理解力比较底，网上的解释中，总是用移动
+
+了s步，又是长度的，总是弄的我很晕，于是，给出我自己的解释好了，所有的都用移动了多少步来说明。
+
+走一步的指针叫slow，走两步的叫fast。
+
+相遇的时候，slow共移动了s步，fast共移动了2s步，这个是显而易见的。
+
+定义a如下： 链表头移动a步到达入口点。
+
+定义x如下： 入口点移动x步到达相遇点。
+
+定义r如下： 从环中的某一点移动r步，又到达的这一点，也就是转了一圈的意思。
+
+定义t如下：　从相遇点移动到入口点的移动步数
+
+定义L如下： 从链表头移动L步，又到达了相遇点。也就是遍历完链表之后，通过最后一个节点的指针，又移动到了链表中的某一点。
+
+其中Ｌ　＝　a + r  =  a + x + t
+
+那么slow和fast相遇了，fast必然比slow多走了n个圈，也就是 n*r 步，那么
+
+s = a + x
+
+2s = s + n*r ， 可得  s = n*r
+
+将s=a+x，带入s =n*r，可得 a+x = n*r, 也就是 a+x = (n-1)*r + r 　　
+
+从表头移动到入口点，再从入口点移动到入口点，也就是移动了整个链表的距离，即是 L =  a + r , 所以r = L - a
+
+所以   a+x = (n-1)*r + L - a ,   于是 a  = (n-1)*r + L - a - x = (n-1)*r + t
+
+也就是说，从表头到入口点的距离，等于从相遇点继续遍历又到表头的距离。
+
+所以，从表头设立一个指针，从相遇点设立一个指针，两个同时移动，必然能够在入口点相遇，这样，就求出了相遇点。
+
+
+想象1，
+a同向绕圈追赶b,路程差s,速度差v,则经过t=s/v,a追上b
+简化了想，就是b原地不动,a以v的速度跑完s跟b汇合。
+v相当于pq指针速度差（p慢q快），s相当于pq 都进入环时，q顺时针到p的距离。
+
+然而，具体到链表环路，这个速度差，有讲究。再次想象2，
+飞行棋最后一个环节，从1走到6结束，骰子每次都投中2，这样永远到不了终点。1,3,5,7（7相当于回到1），1到7循环，就是走不到6。所以速度差V取1，比较稳妥，怎么都能走到终点（ab能重合）。
+*/
+//查找环的入口点 很复杂 不理解
+LinkNode* FindLoopEntrance(LinkNode* Head)
+{
+	LinkNode* loop=NULL;
+  loop=LinkListIsLoop(Head);
+  LinkNode* node = Head->Next;
+
+  while (node != loop)
+	{
+	  node = node->Next;
+		loop = loop->Next;
+	}
+	return loop;
+}
+
+void LinkListSort()
+{
+
+}
+
+void Quick_Sort(int arr[],int len)
+{
+	int front = 0;
+	int back = len - 1;
+
+
+
+
+}
 void TestLinkList()
 {
-	LinkNode node5 = { 5, NULL };
-	LinkNode node4 = { 4, &node5 };
-	LinkNode node3 = { 3, &node4 };
-	LinkNode node2 = { 2, &node3 };
-	LinkNode node1 = { 1, &node2 };
-	LinkNode node0 = { 0, &node1 };
+	LinkNode node0;
+	LinkNode node1;
+	LinkNode node2;
+	LinkNode node3;
+	LinkNode node4;
+	LinkNode node5;
+	LinkNode node6;
+	LinkNode node7;
+	LinkNode node8;
 
-	LinkNode node8 = { 8, &node4 };
-	LinkNode node7 = { 7, &node8 };
-	LinkNode node6 = { 6, &node7 };
-	//
+	node0 = { 0, &node1 };
+	node1 = { 1, &node2 };
+	node2 = { 2, &node3 };
+	node3 = { 3, &node4 };
+	node4 = { 4, &node5 };
+	node5 = { 5, &node6 };
+	node6 = { 6, &node7 };
+	node7 = { 7, &node8 };
+    node8 = { 8, &node4 };
+
+
+	LinkNode head = { -1, &node0 };
+	LinkNode* entrance=FindLoopEntrance(&head);
+
 	/*
 	Traverse(&node1);
 	Reverse(&node1);
@@ -128,25 +302,51 @@ void TestLinkList()
 	*/
 }
 
-void ArrayT(int*p[])
+
+typedef int(*MYADD)(int, int);
+
+struct mystru{
+	int operator()(int a, int b)
+	{
+		return a - b;
+	}
+};
+
+
+void mytestfun(int(*funp)(int, int))
 {
 
 }
 
+
+
+
+
 int main()
 {
-	int *arr[5] = { 0 };
-	ArrayT(arr);
+	struct mystru myst;
+	int a = myst(4, 2);
+	int ret = StaticSum(45, 54);
+	ret = DllSum(65, 3);
+	LPCWSTR path = L"./dlllib.dll";
+ 	HMODULE handle= LoadLibrary(path);
+	LPCSTR funname = "DllSum";
+	MYADD myadd = (MYADD)GetProcAddress(handle, funname);
+
+	ret = myadd(1, 2);
+
+
+	std::cout << ret << std::endl;
+
 	//TestLinkList();
 
-	freopen("f:\\struct.txt", "r", stdin);
+	int arr_int[11] = { 45, 89, 74, 20, 36, 12, 87, 25, 41, 37, 61 };
 
-	char buf[1024] = { 0 };
-	scanf("%s", buf);
-	printf("%s", buf);
-	fclose(stdin);
-
-
+	for (int i = 0; i < 11; ++i)
+	{
+		printf("%d ", arr_int[i]);
+	}
+	printf("\n");
 	//system("pause");
 	return EXIT_SUCCESS;
 }
