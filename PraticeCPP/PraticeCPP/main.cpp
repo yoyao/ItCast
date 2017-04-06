@@ -193,6 +193,31 @@ int LinkListLoopLength(LinkNode* Head)
 	return len;
 }
 
+LinkNode* LinkListSort(LinkNode* Head, LinkNode* Tail, int(*PFUN)(int, int))
+{
+	LinkNode*p_fast = Head->Next->Next;
+	LinkNode*p_back = Tail;
+	LinkNode* pcur = Head->Next;
+
+	while (p_fast)
+	{
+		if (PFUN(pcur->data, p_fast->data) > 0)
+		{
+			LinkNode* tmp = pcur->Next;
+			pcur->Next = p_fast->Next;
+		}
+	}
+
+
+	return NULL;
+}
+
+int MyCompare(int a, int b)
+{
+	return a - b;
+}
+
+
 /*
 那么在有环的基础上，怎么找到这个环的入口呢，一般网上也会给出解释，可能是我的理解力比较底，网上的解释中，总是用移动
 
@@ -254,20 +279,76 @@ LinkNode* FindLoopEntrance(LinkNode* Head)
 	return loop;
 }
 
-void LinkListSort()
-{
 
+// 5, 4, 1, 9, 6, 3, 7, 10, 2, 11,8
+int Quick_Sort(int arr[],int front,int back)
+{
+	int curval = arr[front];
+	//int pos = front;
+
+	while (front < back)
+	{
+		while (arr[back] > curval &&front < back)
+		{
+			--back;
+		}
+		if (front < back)
+		{
+			arr[front] = arr[back];
+			//arr[front] = ;
+			//pos = back;
+		}
+
+
+		while (arr[front] < curval &&front < back)
+		{
+			++front;
+		}
+		if (front < back)
+		{
+			arr[back] = arr[front];
+			//arr[pos] = arr[front + 1];
+			//pos = front + 1;
+		}
+	}
+	
+	arr[front] = curval;
+
+
+	return front;
 }
 
-void Quick_Sort(int arr[],int len)
+void DoQuick_Sort(int arr[], int front, int back)
 {
-	int front = 0;
-	int back = len - 1;
-
-
-
-
+	if (front <back)
+	{
+		int i = Quick_Sort(arr, front, back);//先成挖坑填数法调整s[]  
+		DoQuick_Sort(arr, front, i - 1); // 递归调用   
+		DoQuick_Sort(arr, i + 1, back);
+	}
 }
+
+void quicksort(int v[], int left, int right){
+	if (left < right){
+		int key = v[left];
+		int low = left;
+		int high = right;
+		while (low < high){
+			while (low < high && v[high] > key){
+				high--;
+			}
+			v[low] = v[high];
+			while (low < high && v[low] < key){
+				low++;
+			}
+			v[high] = v[low];
+		}
+		v[low] = key;
+		quicksort(v, left, low - 1);
+		quicksort(v, low + 1, right);
+	}
+}
+
 void TestLinkList()
 {
 	LinkNode node0;
@@ -280,23 +361,23 @@ void TestLinkList()
 	LinkNode node7;
 	LinkNode node8;
 
-	node0 = { 0, &node1 };
+	node0 = { 4, &node1 };
 	node1 = { 1, &node2 };
 	node2 = { 2, &node3 };
-	node3 = { 3, &node4 };
-	node4 = { 4, &node5 };
+	node3 = { 7, &node4 };
+	node4 = { 8, &node5 };
 	node5 = { 5, &node6 };
-	node6 = { 6, &node7 };
-	node7 = { 7, &node8 };
-    node8 = { 8, &node4 };
+	node6 = { 9, &node7 };
+	node7 = { 3, &node8 };
+    node8 = { 6, &node4 };
 
 
 	LinkNode head = { -1, &node0 };
-	LinkNode* entrance=FindLoopEntrance(&head);
-
-	/*
-	Traverse(&node1);
-	Reverse(&node1);
+	//LinkNode* entrance=FindLoopEntrance(&head);
+	
+	
+	Traverse(&node0);
+	/*Reverse(&node1);
 	Traverse(&node5);
 	LinkNode* inters=IsIntersect(&node6, &node0);
 	*/
@@ -311,12 +392,6 @@ struct mystru{
 		return a - b;
 	}
 };
-
-
-void mytestfun(int(*funp)(int, int))
-{
-
-}
 
 
 
@@ -338,9 +413,11 @@ int main()
 
 	std::cout << ret << std::endl;
 
-	//TestLinkList();
+	TestLinkList();
 
-	int arr_int[11] = { 45, 89, 74, 20, 36, 12, 87, 25, 41, 37, 61 };
+	int arr_int[11] = { 5, 4, 1, 9, 6, 3, 7, 10, 2, 11,8 };
+	DoQuick_Sort(arr_int, 0, 10);
+	//quicksort(arr_int, 0, 10);
 
 	for (int i = 0; i < 11; ++i)
 	{
