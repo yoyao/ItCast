@@ -1,14 +1,22 @@
-﻿生成启动时间为 2017/4/6 21:51:45。
+﻿生成启动时间为 2017/4/7 22:12:26。
      1>项目“F:\GitHub\Respository\ItCast\PraticeCPP\EmployeeManage\EmployeeManage.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D DMEMWATCH /D DMW_STDIO /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
+         main.c
+     1>f:\github\respository\itcast\praticecpp\employeemanage\main.c(243): warning C4717: “SelectFunc”: 如递归所有控件路径，函数将导致运行时堆栈溢出
        Link:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.lib" /MACHINE:X86 Debug\LinkList.obj
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.lib" /MACHINE:X86 Debug\Employee.obj
+         Debug\LinkList.obj
+         Debug\LinkStack.obj
+         Debug\Login.obj
+         Debug\LoginLog.obj
          Debug\main.obj
+         Debug\MyTools.obj
+         Debug\cJSON.obj
+         Debug\memwatch.obj
          EmployeeManage.vcxproj -> F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.exe
      1>已完成生成项目“F:\GitHub\Respository\ItCast\PraticeCPP\EmployeeManage\EmployeeManage.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:00.52
+已用时间 00:00:01.04

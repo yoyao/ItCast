@@ -15,10 +15,31 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="LinkList.c">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="LinkList.c">
+    <ClCompile Include="Login.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Employee.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="MyTools.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\memwatch.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="Tools\cJSON.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LoginLog.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.c">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LinkStack.c">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -27,6 +48,27 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="Administrator.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Login.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Employee.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="MyTools.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\memwatch.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="Tools\cJSON.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LoginLog.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LinkStack.h">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

@@ -44,6 +44,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
+      <PreprocessorDefinitions>DMEMWATCH;DMW_STDIO;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ClCompile>
     <Link>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -64,12 +65,26 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Employee.c" />
     <ClCompile Include="LinkList.c" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="LinkStack.c" />
+    <ClCompile Include="Login.c" />
+    <ClCompile Include="LoginLog.c" />
+    <ClCompile Include="main.c" />
+    <ClCompile Include="MyTools.c" />
+    <ClCompile Include="Tools\cJSON.c" />
+    <ClCompile Include="Tools\memwatch.c" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Administrator.h" />
+    <ClInclude Include="Employee.h" />
     <ClInclude Include="LinkList.h" />
+    <ClInclude Include="LinkStack.h" />
+    <ClInclude Include="Login.h" />
+    <ClInclude Include="LoginLog.h" />
+    <ClInclude Include="MyTools.h" />
+    <ClInclude Include="Tools\cJSON.h" />
+    <ClInclude Include="Tools\memwatch.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
