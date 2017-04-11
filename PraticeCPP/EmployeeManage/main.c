@@ -8,10 +8,11 @@
 #include"LinkList.h"
 #include"Administrator.h"
 #include"Login.h"
-#include"Tools\memwatch.h"
 #include"LoginLog.h"
 #include"Employee.h"
 #include"LinkStack.h"
+#include"Tools\memwatch.h"
+
 
 #define FUN_EXIT      0
 #define FUN_EMPLIST   1
@@ -31,7 +32,7 @@ void AddExitFun(void(*pfun)(void))
 void myprintf(void* data)
 {
 	Administrator* a1 = (Administrator*)data;
-	printf("name:%s,pwd:%s,addtime:%ld\n", a1->Name, a1->PassWord,a1->AddTime);
+	printf("ID:%d,name:%s,pwd:%s,addtime:%ld\n",a1->ID, a1->Name, a1->PassWord,a1->AddTime);
 }
 
 int mycompare(void* data,void* data1)
@@ -39,6 +40,15 @@ int mycompare(void* data,void* data1)
 	int sign = 0;
 	Administrator* a1 = (Administrator*)data;
 	Administrator* a2 = (Administrator*)data1;
+
+	if (a1->ID > a2->ID)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
 	if (a1->AddTime == a2->AddTime)
 	{
 		if (a1->ID == a2->ID)
@@ -55,12 +65,90 @@ int mycompare(void* data,void* data1)
 	return sign;
 }
 
+
+int CompareByID(void* data, void* data1)
+{
+	int sign = 0;
+	Administrator* a1 = (Administrator*)data;
+	Administrator* a2 = (Administrator*)data1;
+
+	if (a1->ID==a2->ID)
+	{
+		return 1;
+	}
+	else
+	{
+		return 0;
+	}
+}
+
 void PrintEmployee(void* data)
 {
 	Employee* emp = (Employee*)data;
 	printf("  %d  %s		%d	%s		%s\n", emp->ID, emp->Name, emp->Age, emp->Born, emp->Address);
 	     //ID  姓名 年龄 生日 地址
 }
+
+
+void ListBubbleSort(LinkList* list, int (*Compare)(void*,void*))
+{
+	                           //1
+#if 0
+	int arr[10] = { 10, 4, 6, 8, 3, 1, 9, 2, 7, 5 };
+	//{ 1, 3,4,6,2,8,9,10,7,5 }
+
+	for (int i = 0; i < 10; ++i)
+	{
+		for (int j = i + 1; j < 10; ++j)
+		{
+			if (arr[i]>arr[j])
+			{
+				arr[i] = arr[i] + arr[j];
+				arr[j] = arr[i] - arr[j];
+				arr[i] = arr[i] - arr[j];
+			}
+		}
+	}
+
+
+	for (int i = 0; i < 10; ++i)
+	{
+		printf("%d ", arr[i]);
+	}
+
+	return;
+#endif // 0
+
+	if (list == NULL || list->Header.Next==NULL)
+	{
+		return;
+	}
+
+	ListNode* pcur = list->Header.Next;
+	
+	while (pcur != NULL)
+	{
+		ListNode* next = pcur->Next;
+		while (next!=NULL)
+		{
+			if (Compare(pcur->Data,next->Data)==1)//前大于后
+			{
+				void * p_tmp = pcur->Data;
+				pcur->Data = next->Data;
+				next->Data = p_tmp;
+			}
+			next = next->Next;
+		}
+		pcur = pcur->Next;
+	}
+
+
+
+
+
+
+}
+
 void testlist()
 {
 	time_t tm;
@@ -73,21 +161,26 @@ void testlist()
 	Administrator a6 = { 6, "admin6", "1234561", time(&tm) };
 	InsertLinkList(list, TAILINSERT, &a1, sizeof(a1));//1
 	InsertLinkList(list, TAILINSERT, &a2, sizeof(a2));//2
-	InsertLinkList(list, TAILINSERT, &a3, sizeof(a3));//3
+	InsertLinkList(list, HEADINSERT, &a3, sizeof(a3));//3
 	InsertLinkList(list, TAILINSERT, &a4, sizeof(a4));//4
-	InsertLinkList(list, TAILINSERT, &a5, sizeof(a5));//5
+	InsertLinkList(list, HEADINSERT, &a5, sizeof(a5));//5
 	InsertLinkList(list, TAILINSERT, &a6, sizeof(a6));//6
 
-	TraverseLinList(list, myprintf);
-
 	
-	printf("-------------------------------------------------------------------------------------------------\n");
-	Administrator* pa = (Administrator*)list->Tail->Data;
+	/*Administrator* pa = (Administrator*)list->Tail->Data;
 	RemoveNodeByValue(list, &a1,mycompare);
 	TraverseLinList(list, myprintf);
 	 pa = (Administrator*)list->Tail->Data;
 	printf("taile name is:%s,pwd:%s,addtime:%ld\n", pa->Name, pa->PassWord,pa->AddTime);
-	ClearLinkList(&list);
+	ClearLinkList(&list);*/
+
+	TraverseLinList(list, myprintf);
+	printf("-------------------------------------------------------------------------------------------------\n");
+
+	ListBubbleSort(list, mycompare);
+
+	TraverseLinList(list, myprintf);
+
 	DestroyLinkList(&list);
 }
 
@@ -109,10 +202,11 @@ void ExitPfun(void)
 	{
 		DestroyLinkList(&list);
 	}
+	
 }
  //登陆方法
-void Login()
- {
+int Login()
+{
 	printf("-------------------------------------------------------------------------------------------------\n");
 	printf("-*-------------*-----***------*----------*****-------****--------*--------*----------***---------\n");
 	printf("--*-----------*----*------*---*---------*-----------*----*------*-*------*-*-------*------*------\n");
@@ -125,30 +219,33 @@ void Login()
 	int islogin = 0;
 	time_t tm;
 	islogin = LoginForm(Name, Pwd);
-	while (islogin == 0)
+	if (islogin != 1)
 	{
 		printf("                              --------------------\n");
 		printf("                              -      登陆失败    -\n");
 		printf("                              --------------------\n");
-		WriteLoginLog(Name, time(&tm), LOGINFAIL);
+	}
+	else
+	{
 		memset(Name, 0, NAMELEN);
 		memset(Pwd, 0, PWDLEN);
-		islogin = LoginForm(Name, Pwd);
-		int a = 89;
+		WriteLoginLog(Name, time(&tm), LOGINSUCC);
 	}
-	WriteLoginLog(Name, time(&tm), LOGINSUCC);
+	
 
- }
+
+	return islogin;
+}
 //功能列表
 void FunctionList()
 {
-	printf("***********************************************\n");
-	printf("*- 1 --查看员工列表          - 2 --增加员工   *\n");
-	printf("*- 3 --更改员工              - 4 --删除员工   *\n");
-	printf("*- 0 --退出	                              *\n");
-	printf("***********************************************\n\n");
+	printf("                  ***********************************************\n");
+	printf("                  *- 1 --查看员工列表          - 2 --增加员工   *\n");
+	printf("                  *- 3 --更改员工              - 4 --删除员工   *\n");
+	printf("                  *- 0 --退出	                                *\n");
+	printf("                  ***********************************************\n\n");
 }
-
+//显示所有员工
 void ShowEmployeeList()
 {
 	printf("  ##################################################\n\n");
@@ -160,6 +257,7 @@ void ShowEmployeeList()
 	TraverseLinList(list, PrintEmployee);
 	printf("  ##################################################\n\n");
 }
+//添加员工
 void AddEmployee()
 {
 	printf("依次输入员工的ID，姓名，年龄，生日，地址，以英文符逗号（,）间隔\n");
@@ -202,31 +300,97 @@ void AddEmployee()
 		
 	}
 }
-void SelectFunc()
+
+
+void UpdateFunction()
 {
-	int fun = -1;
-	printf("选择操作\n");
-	scanf("%d", &fun);
-	printf("\n");
-	switch (fun)
+	int idnum = 0;
+	printf("请输入员工ID号（0退出）\nID：");
+	scanf("%d", &idnum);
+	ListNode* find=NULL;
+	
+	while (idnum < 1)
+	{
+		if (idnum == 0)
+		{
+			return;
+		}
+		printf("输入错误，请重新输入\nID：");
+		if (NULL == find)
+		{
+			printf("没有此ID号\n");
+			idnum = 0;
+		}
+	}
+	find = FindNodeByValue(list, &idnum, CompareByID);
+	Employee* emp = (Employee*)find->Data;
+	printf("用户原数据为:\nID:%d\t姓名:%s\n年龄:%d\t生日:%s\n住址:%s\n",emp->ID,emp->Name,emp->Age,emp->Born,emp->Address);
+	printf("确认更改 输入1，非1返回\n");
+	scanf("%d", &idnum);
+	if (idnum == 1)
+	{
+		printf("依次输入员工的姓名，年龄，生日，地址，以英文符逗号（,）间隔\n");
+		char buf[1024] = { 0 };
+		fflush(stdin);
+		fgets(buf, 1024, stdin);
+		char*sub;
+		sub = strtok(buf, ",");
+		if (sub != NULL)
+		{
+			strcpy(emp->Name, sub);
+		}
+		sub = strtok(NULL, ",");
+		if (sub != NULL)
+		{
+			emp->Age = atoi(sub);
+		}
+		sub = strtok(NULL, ",");
+		if (sub != NULL)
+		{
+			strcpy(emp->Born, sub);
+		}
+		sub = strtok(NULL, ",");
+		if (sub != NULL)
+		{
+			sub[strlen(sub) - 1] = 0;
+			strcpy(emp->Address, sub);
+		}
+
+		printf(" --------------------\n");
+		printf("|------更改成功------|\n");
+		printf("|-------------------|\n");
+	}
+}
+
+
+//执行选择后的函数
+int DoFunc(int funcid)
+{
+	int state = -1;
+	switch (funcid)
 	{
 	case FUN_EMPLIST:
 	{
+						state = FUN_EMPLIST;
 						ShowEmployeeList();
 						break;
 	}
 	case FUN_ADDEMP:
 	{
+					   state = FUN_ADDEMP;
 					   AddEmployee();
 					   break;
 	}
 	case FUN_UPDATEEMP:
-	{
-
+	{ 
+						  UpdateFunction();
+						  state = FUN_UPDATEEMP;
+						  break;
 	}
 	case FUN_DELEMP:
 	{
-
+					   state = FUN_DELEMP;
+					   break;
 	}
 	case FUN_EXIT:
 	{
@@ -234,22 +398,50 @@ void SelectFunc()
 					 WriteExitLog(CurrentAdmin.Name, time(&t));
 					 system("cls");
 					 ProgmExit();
-					 Login();
+					 state = FUN_EXIT;
+					// Login();
 	}
-	default:
-		SelectFunc();
 	}
-	SelectFunc();
+
+	return state;
+}
+//选择功能
+int SelectFunc()
+{
+	int fun = -1;
+	printf("选择操作\n");
+	scanf("%d", &fun);
+	printf("\n");
+	return DoFunc(fun);
+	//SelectFunc();
+}
+//查找员工
+void SearchEmployee()
+{
+
 }
 
 int main()
 {
+	mwInit();
 	ExitStack= Init_LinkStack();//初始化退出函数队列
 	Push_LinkStack(ExitStack, ExitPfun);
-	mwInit();
-	Login();//登陆
+	int islogin = 0;
+	while (islogin!=1)
+	{
+		islogin=Login();//登陆
+	}
     FunctionList();//登陆成功显示功能列表
-	SelectFunc();//选择功能
+	int state=SelectFunc();//选择功能
+	while (state != FUN_EXIT)
+	{
+		FunctionList();
+		state=SelectFunc();//选择功能
+	}
+	if (ExitStack != NULL)
+	{
+		Destroy_LinkStack(ExitStack);
+	}
 	mwTerm();
 	system("pause");
 	return EXIT_SUCCESS;

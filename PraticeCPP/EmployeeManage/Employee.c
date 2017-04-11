@@ -3,12 +3,16 @@
 
 static FILE* FileEmp = NULL;
 extern void AddExitFun(void(*pfun)(void));
-
+extern  LinkList* list;
 
 
 void Exit_Fun(void)
 {
 	printf("emp exit funtion...\n");
+	if (list != NULL)
+	{
+		WriteEmployeeList(list);
+	}
 	if (FileEmp != NULL)
 	{
 		fflush(FileEmp);
@@ -50,18 +54,19 @@ LinkList* GetEmployeeList()
 			cJSON* json = cJSON_Parse(buf);
 			if (NULL != json)
 			{
-				Employee* emp = (Employee*)calloc(1, sizeof(Employee));
+				Employee emp;
+				//Employee* emp = (Employee*)calloc(1, sizeof(Employee));
 				cJSON * tmp = cJSON_GetObjectItem(json, "Address");
-				strcpy(emp->Address, tmp->valuestring);//地址
+				strcpy(emp.Address, tmp->valuestring);//地址
 				tmp = cJSON_GetObjectItem(json, "Name");
-				strcpy(emp->Name, tmp->valuestring);//名字
+				strcpy(emp.Name, tmp->valuestring);//名字
 				tmp = cJSON_GetObjectItem(json, "Age");
-				emp->Age = atoi(tmp->valuestring);//年龄
+				emp.Age = atoi(tmp->valuestring);//年龄
 				tmp = cJSON_GetObjectItem(json, "ID");
-				emp->ID = atoi(tmp->valuestring);//ID
+				emp.ID = atoi(tmp->valuestring);//ID
 				tmp = cJSON_GetObjectItem(json, "Born");
-				strcpy(emp->Born, tmp->valuestring);//地址
-				InsertLinkList(list, TAILINSERT, emp, sizeof(Employee));
+				strcpy(emp.Born, tmp->valuestring);//地址
+				InsertLinkList(list, TAILINSERT, &emp, sizeof(Employee));
 			}
 
 		}

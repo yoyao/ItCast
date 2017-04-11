@@ -10,6 +10,7 @@ extern "C"{
 #include<conio.h>
 #include"Administrator.h"
 #include"LinkList.h"
+#include"Tools\memwatch.h"
 
 #define LOGINSUC 1
 #define LOGINFAIL 0

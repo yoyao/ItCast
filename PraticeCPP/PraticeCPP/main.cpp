@@ -410,15 +410,12 @@ int main()
 
 	ret = myadd(1, 2);
 
-
 	std::cout << ret << std::endl;
 
 	TestLinkList();
 
 	int arr_int[11] = { 5, 4, 1, 9, 6, 3, 7, 10, 2, 11,8 };
 	DoQuick_Sort(arr_int, 0, 10);
-	//quicksort(arr_int, 0, 10);
-
 	for (int i = 0; i < 11; ++i)
 	{
 		printf("%d ", arr_int[i]);

@@ -5,6 +5,7 @@
 #include<string.h>
 #include"LinkList.h"
 #include"MyTools.h"
+#include"Tools\memwatch.h"
 
 #ifdef __cplusplus
 extern "C"{

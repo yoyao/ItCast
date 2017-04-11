@@ -191,6 +191,7 @@ int ClearLinkList(LinkList** list)
 		}
 		node = node->Next;
 	}
+	node = (*list)->Header.Next;
 
 	while (node != NULL)
 	{

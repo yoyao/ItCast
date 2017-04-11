@@ -65,7 +65,7 @@ int VerifyLogin(char* Name, char*Pwd, Administrator* admin)
 		}
 	}
 	rewind(FileAdmin);
-	return 0;
+	return 1;
 }
 
 int LoginForm(char* Name, char* Pwd)

@@ -55,9 +55,8 @@ void Pop_LinkStack(LinkStack stack)
 
 	//缓存下第一个节点
 	struct StackNode *pFirst = ls->header.next;
-
 	ls->header.next = pFirst->next;
-
+	free(pFirst);
 	ls->size--;
 }
 //获得栈顶元素
@@ -102,8 +101,9 @@ void Destroy_LinkStack(LinkStack stack)
 	struct StackNode *pnext = ls->header.next;
 	while (pnext)
 	{
+		struct	StackNode *pn = pnext->next;
 		free(pnext);
-		pnext = pnext->next;
+		pnext = pn;
 	}
 	free(stack);
 	stack = NULL;

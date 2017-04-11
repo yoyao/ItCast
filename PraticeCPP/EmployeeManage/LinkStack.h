@@ -1,6 +1,7 @@
 #pragma once
 
 #include<stdlib.h>
+#include"Tools\memwatch.h"
 
 struct StackNode
 {

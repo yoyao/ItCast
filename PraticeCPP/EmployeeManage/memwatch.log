@@ -1,0 +1,373 @@
+
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Sun Apr 09 19:18:20 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Sun Apr 09 19:18:31 2017
+
+unfreed: <24> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 015976F0  	{07 00 00 00 B9 F9 B5 C2 B8 D9 00 00 00 00 00 00 ................}
+unfreed: <21> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01597378  	{06 00 00 00 C1 F5 C4 DC 00 00 00 00 00 00 00 00 ................}
+unfreed: <18> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01597000  	{05 00 00 00 C4 E1 B9 C5 C0 AD CB B9 A1 A4 D5 D4 ................}
+unfreed: <15> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01595438  	{04 00 00 00 57 61 6E 67 46 75 47 75 69 00 00 00 ....WangFuGui...}
+unfreed: <12> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 015950C0  	{03 00 00 00 4A 65 72 72 79 00 00 00 00 00 00 00 ....Jerry.......}
+unfreed: <9> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01594940  	{02 00 00 00 54 6F 6D 00 00 00 00 00 00 00 00 00 ....Tom.........}
+unfreed: <6> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 015944D8  	{01 00 00 00 61 64 6D 69 6E 00 00 00 00 00 00 00 ....admin.......}
+unfreed: <4> f:\github\respository\itcast\praticecpp\employeemanage\linkstack.c(32), 8 bytes at 015924B8  	{90 E6 58 01 A5 10 F0 00 .. .. .. .. .. .. .. .. ..X.....}
+unfreed: <3> f:\github\respository\itcast\praticecpp\employeemanage\linkstack.c(32), 8 bytes at 0158E690  	{28 E6 58 01 7F 13 F0 00 .. .. .. .. .. .. .. .. (.X.....}
+unfreed: <2> f:\github\respository\itcast\praticecpp\employeemanage\linkstack.c(32), 8 bytes at 0158E628  	{00 00 00 00 05 10 F0 00 .. .. .. .. .. .. .. .. ........}
+
+Memory usage statistics (global):
+ N)umber of allocations made: 26
+ L)argest memory usage      : 3804
+ T)otal of all alloc() calls: 3804
+ U)nfreed bytes totals      : 1872
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Sun Apr 09 19:32:17 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Sun Apr 09 19:32:26 2017
+
+unfreed: <24> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 010676F0  	{07 00 00 00 B9 F9 B5 C2 B8 D9 00 00 00 00 00 00 ................}
+unfreed: <21> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01067378  	{06 00 00 00 C1 F5 C4 DC 00 00 00 00 00 00 00 00 ................}
+unfreed: <18> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01067000  	{05 00 00 00 C4 E1 B9 C5 C0 AD CB B9 A1 A4 D5 D4 ................}
+unfreed: <15> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01065438  	{04 00 00 00 57 61 6E 67 46 75 47 75 69 00 00 00 ....WangFuGui...}
+unfreed: <12> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 010650C0  	{03 00 00 00 4A 65 72 72 79 00 00 00 00 00 00 00 ....Jerry.......}
+unfreed: <9> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 01064940  	{02 00 00 00 54 6F 6D 00 00 00 00 00 00 00 00 00 ....Tom.........}
+unfreed: <6> f:\github\respository\itcast\praticecpp\employeemanage\employee.c(53), 264 bytes at 010644D8  	{01 00 00 00 61 64 6D 69 6E 00 00 00 00 00 00 00 ....admin.......}
+
+Memory usage statistics (global):
+ N)umber of allocations made: 26
+ L)argest memory usage      : 3804
+ T)otal of all alloc() calls: 3804
+ U)nfreed bytes totals      : 1848
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Sun Apr 09 19:35:02 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Sun Apr 09 19:36:34 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 21
+ L)argest memory usage      : 2228
+ T)otal of all alloc() calls: 2228
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Sun Apr 09 23:08:10 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Sun Apr 09 23:10:59 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 08:30:54 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 08:31:52 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 08:31:56 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 08:31:56 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:16:19 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:16:19 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:16:53 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:16:57 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:39:08 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:39:16 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:41:02 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:41:07 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:41:35 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:41:41 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:41:57 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:42:01 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:42:20 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:42:23 2017
+
+unfreed: <13> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(27), 208 bytes at 0157FD80  	{06 00 00 00 61 64 6D 69 6E 36 00 00 00 00 00 00 ....admin6......}
+unfreed: <12> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(26), 8 bytes at 0157FD18  	{80 FD 57 01 00 00 00 00 .. .. .. .. .. .. .. .. ..W.....}
+unfreed: <11> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(27), 208 bytes at 0157FBE8  	{05 00 00 00 61 64 6D 69 6E 35 00 00 00 00 00 00 ....admin5......}
+unfreed: <10> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(26), 8 bytes at 0157FB80  	{88 F5 57 01 50 F8 57 01 .. .. .. .. .. .. .. .. ..W.P.W.}
+unfreed: <9> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(27), 208 bytes at 0157FA50  	{04 00 00 00 61 64 6D 69 6E 34 00 00 00 00 00 00 ....admin4......}
+unfreed: <8> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(26), 8 bytes at 0157F9E8  	{50 FA 57 01 18 FD 57 01 .. .. .. .. .. .. .. .. P.W...W.}
+unfreed: <7> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(27), 208 bytes at 0157F8B8  	{03 00 00 00 61 64 6D 69 6E 33 00 00 00 00 00 00 ....admin3......}
+unfreed: <6> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(26), 8 bytes at 0157F850  	{E8 FB 57 01 20 F5 57 01 .. .. .. .. .. .. .. .. ..W. .W.}
+unfreed: <5> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(27), 208 bytes at 0157F720  	{02 00 00 00 61 64 6D 69 6E 32 00 00 00 00 00 00 ....admin2......}
+unfreed: <4> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(26), 8 bytes at 0157F6B8  	{20 F7 57 01 E8 F9 57 01 .. .. .. .. .. .. .. ..  .W...W.}
+unfreed: <3> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(27), 208 bytes at 0157F588  	{01 00 00 00 61 64 6D 69 6E 31 00 00 00 00 00 00 ....admin1......}
+unfreed: <2> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(26), 8 bytes at 0157F520  	{B8 F8 57 01 B8 F6 57 01 .. .. .. .. .. .. .. .. ..W...W.}
+unfreed: <1> f:\github\respository\itcast\praticecpp\employeemanage\linklist.c(6), 16 bytes at 0157EAA8  	{00 00 00 00 80 FB 57 01 06 00 00 00 18 FD 57 01 ......W.......W.}
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 1312
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 19:42:37 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 19:42:47 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 13
+ L)argest memory usage      : 1312
+ T)otal of all alloc() calls: 1312
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 21:08:04 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 21:08:45 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 21
+ L)argest memory usage      : 2228
+ T)otal of all alloc() calls: 2228
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 21:37:09 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 21:38:42 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 21
+ L)argest memory usage      : 2228
+ T)otal of all alloc() calls: 2228
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 21:41:00 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 21:44:07 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 21
+ L)argest memory usage      : 2228
+ T)otal of all alloc() calls: 2228
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 21:50:28 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 21:51:20 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 21
+ L)argest memory usage      : 2228
+ T)otal of all alloc() calls: 2228
+ U)nfreed bytes totals      : 0
+
+============= MEMWATCH 2.71 Copyright (C) 1992-1999 Johan Lindh =============
+
+Started at Mon Apr 10 21:54:38 2017
+
+Modes: 64-bit mwDWORD==(unsigned long)
+mwROUNDALLOC==8 sizeof(mwData)==32 mwDataSize==32
+Compiled using Microsoft C 18.00
+
+
+Stopped at Mon Apr 10 21:56:02 2017
+
+
+Memory usage statistics (global):
+ N)umber of allocations made: 21
+ L)argest memory usage      : 2228
+ T)otal of all alloc() calls: 2228
+ U)nfreed bytes totals      : 0
