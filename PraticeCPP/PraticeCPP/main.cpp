@@ -279,7 +279,6 @@ LinkNode* FindLoopEntrance(LinkNode* Head)
 	return loop;
 }
 
-
 // 5, 4, 1, 9, 6, 3, 7, 10, 2, 11,8
 int Quick_Sort(int arr[],int front,int back)
 {
@@ -397,7 +396,7 @@ struct mystru{
 
 
 
-int main()
+int main01()
 {
 	struct mystru myst;
 	int a = myst(4, 2);

@@ -136,8 +136,6 @@ int RemoveNodeByValue(LinkList* list, void* data, int(*CompFUN)(void*, void*))
 		if (CompFUN(node->Next->Data, data) == 1)
 		{
 			ListNode* ptmp = node->Next->Next;
-			Administrator* aa = (Administrator*)node->Data;
-			aa = (Administrator*)node->Next->Data;
 			free(node->Next->Data);
 			free(node->Next);
 			node->Next = ptmp;
@@ -158,13 +156,13 @@ int RemoveNodeByValue(LinkList* list, void* data, int(*CompFUN)(void*, void*))
 
 ListNode* FindNodeByValue(LinkList* list, void* data, int(*FindFUN)(void*, void*))
 {
-	if (NULL == list || data == NULL)
+	if (NULL == list || data == NULL || FindFUN == NULL)
 	{
 		return NULL;
 	}
 	ListNode* node = list->Header.Next;
 
-	while (node !=NULL&&FindFUN(node->Data, data) != 1)
+	while (node !=NULL&&FindFUN(data,node->Data) != 1)
 	{
 		node = node->Next;
 	}
@@ -214,4 +212,41 @@ int DestroyLinkList(LinkList** list)
 	free(*list);
 	*list = NULL;
 	return count;
+}
+
+
+
+
+//链表的冒泡排序
+void ListBubbleSort(LinkList* list, int(*Compare)(void*, void*))
+{
+
+	if (list == NULL || list->Header.Next == NULL)
+	{
+		return;
+	}
+
+	ListNode* pcur = list->Header.Next;
+
+	while (pcur != NULL)
+	{
+		ListNode* next = pcur->Next;
+		while (next != NULL)
+		{
+			if (Compare(pcur->Data, next->Data) == 1)//前大于后
+			{
+				void * p_tmp = pcur->Data;
+				pcur->Data = next->Data;
+				next->Data = p_tmp;
+			}
+			next = next->Next;
+		}
+		pcur = pcur->Next;
+	}
+
+
+
+
+
+
 }

@@ -25,7 +25,7 @@ extern "C"{
 	//初始化
 	LinkStack Init_LinkStack();
 	//入栈
-	void Push_LinkStack(LinkStack stack, void (*PExit)(void));
+	void Push_LinkStack(LinkStack stack, void*);
 	//出栈
 	void Pop_LinkStack(LinkStack stack);
 	//获得栈顶元素

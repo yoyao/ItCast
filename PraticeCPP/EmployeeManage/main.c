@@ -17,8 +17,10 @@
 #define FUN_EXIT      0
 #define FUN_EMPLIST   1
 #define FUN_ADDEMP    2
-#define FUN_UPDATEEMP 3
 #define FUN_DELEMP    4
+#define FUN_UPDATEEMP 3
+#define FUN_SEAREMP    5
+
 
 static LinkStack ExitStack;
 extern Administrator CurrentAdmin;
@@ -34,7 +36,15 @@ void myprintf(void* data)
 	Administrator* a1 = (Administrator*)data;
 	printf("ID:%d,name:%s,pwd:%s,addtime:%ld\n",a1->ID, a1->Name, a1->PassWord,a1->AddTime);
 }
-
+/*
+函数声明
+*/
+int SelectFunc();
+int DoFunc(int funcid);
+ListNode*  SearchEmployee(int idnum);
+/*
+函数声明结束
+*/
 int mycompare(void* data,void* data1)
 {
 	int sign = 0;
@@ -65,21 +75,40 @@ int mycompare(void* data,void* data1)
 	return sign;
 }
 
+int CompareEmp(void* data, void* data1)
+{
+	Employee* a1 = (Employee*)data;
+	Employee* a2 = (Employee*)data1;
 
-int CompareByID(void* data, void* data1)
+	if (a1->ID == a2->ID)
+	{
+		if (strcmp(a1->Address, a2->Address) == 0)
+		{
+			if (strcmp(a1->Name, a2->Name) == 0)
+			{
+				if (strcmp(a1->Born, a2->Born) == 0)
+				{
+					if (a1->Age== a2->Age)
+					{
+						return 1;
+					}
+				}
+			}
+		}
+	}
+	return 0;
+}
+int CompareEmpByID(void* data, void* data1)
 {
 	int sign = 0;
-	Administrator* a1 = (Administrator*)data;
-	Administrator* a2 = (Administrator*)data1;
+	Employee* a1 = (Employee*)data;
+	Employee* a2 = (Employee*)data1;
 
 	if (a1->ID==a2->ID)
 	{
 		return 1;
 	}
-	else
-	{
 		return 0;
-	}
 }
 
 void PrintEmployee(void* data)
@@ -89,65 +118,9 @@ void PrintEmployee(void* data)
 	     //ID  姓名 年龄 生日 地址
 }
 
-
-void ListBubbleSort(LinkList* list, int (*Compare)(void*,void*))
-{
-	                           //1
-#if 0
-	int arr[10] = { 10, 4, 6, 8, 3, 1, 9, 2, 7, 5 };
-	//{ 1, 3,4,6,2,8,9,10,7,5 }
-
-	for (int i = 0; i < 10; ++i)
-	{
-		for (int j = i + 1; j < 10; ++j)
-		{
-			if (arr[i]>arr[j])
-			{
-				arr[i] = arr[i] + arr[j];
-				arr[j] = arr[i] - arr[j];
-				arr[i] = arr[i] - arr[j];
-			}
-		}
-	}
+int DoFunc(int funcid);
 
 
-	for (int i = 0; i < 10; ++i)
-	{
-		printf("%d ", arr[i]);
-	}
-
-	return;
-#endif // 0
-
-	if (list == NULL || list->Header.Next==NULL)
-	{
-		return;
-	}
-
-	ListNode* pcur = list->Header.Next;
-	
-	while (pcur != NULL)
-	{
-		ListNode* next = pcur->Next;
-		while (next!=NULL)
-		{
-			if (Compare(pcur->Data,next->Data)==1)//前大于后
-			{
-				void * p_tmp = pcur->Data;
-				pcur->Data = next->Data;
-				next->Data = p_tmp;
-			}
-			next = next->Next;
-		}
-		pcur = pcur->Next;
-	}
-
-
-
-
-
-
-}
 
 void testlist()
 {
@@ -236,15 +209,7 @@ int Login()
 
 	return islogin;
 }
-//功能列表
-void FunctionList()
-{
-	printf("                  ***********************************************\n");
-	printf("                  *- 1 --查看员工列表          - 2 --增加员工   *\n");
-	printf("                  *- 3 --更改员工              - 4 --删除员工   *\n");
-	printf("                  *- 0 --退出	                                *\n");
-	printf("                  ***********************************************\n\n");
-}
+
 //显示所有员工
 void ShowEmployeeList()
 {
@@ -301,6 +266,56 @@ void AddEmployee()
 	}
 }
 
+void DelFunction()
+{
+	int IdNum = -1;
+	
+	while (IdNum<0)
+	{
+		printf("请输入员工ID,按0退出\n");
+		scanf("%d", &IdNum);
+		if (IdNum < 0)
+		{
+			printf("输入员工ID错误\n--------------------------\n");
+		}
+		if (IdNum == 0)
+		{
+			return;
+		}
+	}
+
+	ListNode* node = SearchEmployee(IdNum);
+
+	if (node == NULL)
+	{
+		printf("--------------------\n未找到该员工信息\n---------------------\n");
+		return;
+	}
+	printf("\n确认按1，返回按0  ");
+	scanf("%d", &IdNum);
+	if (IdNum < 0||IdNum>1)
+	{
+		printf("\n输入错误\n");
+
+		return;
+	}
+	if (IdNum == 0)
+	{
+		return;
+	}
+
+	int num = RemoveNodeByValue(list, node->Data, CompareEmp);
+
+	if (num == 1)
+	{
+		printf("删除成功\n\n");
+	}
+	else
+	{
+		printf("删除失败\n\n");
+	}
+
+}
 
 void UpdateFunction()
 {
@@ -322,7 +337,7 @@ void UpdateFunction()
 			idnum = 0;
 		}
 	}
-	find = FindNodeByValue(list, &idnum, CompareByID);
+	find = FindNodeByValue(list, &idnum, CompareEmpByID);
 	Employee* emp = (Employee*)find->Data;
 	printf("用户原数据为:\nID:%d\t姓名:%s\n年龄:%d\t生日:%s\n住址:%s\n",emp->ID,emp->Name,emp->Age,emp->Born,emp->Address);
 	printf("确认更改 输入1，非1返回\n");
@@ -362,6 +377,77 @@ void UpdateFunction()
 	}
 }
 
+//功能列表
+void FunctionList()
+{
+	printf("                  ***********************************************\n");
+	printf("                  *- 1 --查看员工列表          - 2 --增加员工   *\n");
+	printf("                  *- 3 --更改员工              - 4 --删除员工   *\n");
+	printf("                  *- 5 --查找员工              - 4 --退出系统   *\n");
+	printf("                  ***********************************************\n\n");
+}
+//选择功能
+int SelectFunc()
+{
+	int fun = -1;
+	printf("选择操作\n");
+	scanf("%d", &fun);
+	printf("\n");
+	return DoFunc(fun);
+}
+
+int FindEmployeeByID(void* data, void* data1)
+{
+	int sign = 0;
+	Employee* emp = (Employee*)data1;
+
+	int* id = (int*)data;
+	if ((*id) == emp->ID)
+	{
+		sign = 1;
+	}
+	return sign;
+}
+
+//查找员工
+ListNode* SearchEmployee(int idnum)
+{
+	
+	ListNode* node = FindNodeByValue(list, &idnum, FindEmployeeByID);
+
+
+	return node;
+}
+
+void SearchFunc()
+{
+	int idnum = 0;
+	while (idnum < 1)
+	{
+		printf("请输入员工工号,按0退出\n");
+		scanf("%d", &idnum);
+		if (idnum < 0)
+		{
+			printf("员工工号错误，请重新输入\n--------------------------------\n");
+		}
+		if (idnum == 0)
+		{
+			return;
+		}
+	}
+
+	ListNode* node= SearchEmployee(idnum);
+	if (NULL == node)
+	{
+		printf("未找到该员工\n");
+		return;
+	}
+
+
+	Employee* emp = (Employee*)node->Data;
+	printf("用户数据为:\nID:%d\t姓名:%s\n年龄:%d\t生日:%s\n住址:%s\n", emp->ID, emp->Name, emp->Age, emp->Born, emp->Address);
+}
+
 
 //执行选择后的函数
 int DoFunc(int funcid)
@@ -382,13 +468,14 @@ int DoFunc(int funcid)
 					   break;
 	}
 	case FUN_UPDATEEMP:
-	{ 
+	{
 						  UpdateFunction();
 						  state = FUN_UPDATEEMP;
 						  break;
 	}
 	case FUN_DELEMP:
 	{
+					   DelFunction();
 					   state = FUN_DELEMP;
 					   break;
 	}
@@ -399,27 +486,20 @@ int DoFunc(int funcid)
 					 system("cls");
 					 ProgmExit();
 					 state = FUN_EXIT;
-					// Login();
+					 // Login();
 	}
+	case FUN_SEAREMP:
+	{
+						SearchFunc();
+						state = FUN_SEAREMP;
+						break;
+	}
+		
 	}
 
 	return state;
 }
-//选择功能
-int SelectFunc()
-{
-	int fun = -1;
-	printf("选择操作\n");
-	scanf("%d", &fun);
-	printf("\n");
-	return DoFunc(fun);
-	//SelectFunc();
-}
-//查找员工
-void SearchEmployee()
-{
 
-}
 
 int main()
 {

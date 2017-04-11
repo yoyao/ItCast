@@ -1,5 +1,5 @@
-﻿生成启动时间为 2017/4/10 21:54:35。
-     1>项目“F:\GitHub\Respository\ItCast\PraticeCPP\EmployeeManage\EmployeeManage.vcxproj”在节点 2 上(Build 个目标)。
+﻿生成启动时间为 2017/4/11 19:06:45。
+     1>项目“F:\GitHub\Respository\ItCast\PraticeCPP\EmployeeManage\EmployeeManage.vcxproj”在节点 3 上(Build 个目标)。
      1>ClCompile:
          D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D MEMWATCH /D MW_STDIO /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
          main.c
@@ -18,4 +18,4 @@
 
 生成成功。
 
-已用时间 00:00:00.65
+已用时间 00:00:00.72

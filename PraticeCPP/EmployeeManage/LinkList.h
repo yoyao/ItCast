@@ -45,11 +45,11 @@ extern "C"{
 	/*
 	通过Vlaue移除一个节点 通过函数指针返回此两个值比较是否相等
 	*/
-	int RemoveNodeByValue(LinkList* list, void* value, int(*CompFUN)(void*, void*));
+	int RemoveNodeByValue(LinkList* list, void* data, int(*CompFUN)(void*, void*));
 	/*
 	通过Value寻找符合回掉函数的值。
 	*/
-	ListNode* FindNodeByValue(LinkList* list, void* value, int(*FindFUN)(void*, void*));
+	ListNode* FindNodeByValue(LinkList* list, void* data, int(*FindFUN)(void*, void*));
 	/*
 	清空节点，只保留头节点*/
 	int ClearLinkList(LinkList** list);
@@ -61,7 +61,10 @@ extern "C"{
 	通过给定的函数指针 遍历节点
 	*/
 	void TraverseLinList(LinkList* list, void(*PFUN)(void*));
-
+	/*
+	链表的冒泡排序
+	*/
+	void ListBubbleSort(LinkList* list, int(*Compare)(void*, void*));
 #ifdef __cplusplus
 }
 #endif

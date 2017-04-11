@@ -1,18 +1,17 @@
-﻿生成启动时间为 2017/4/10 21:49:17。
+﻿生成启动时间为 2017/4/11 20:15:59。
      1>项目“F:\GitHub\Respository\ItCast\PraticeCPP\PraticeCPP\PraticeCPP.vcxproj”在节点 2 上(Build 个目标)。
      1>ClCompile:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt main.cpp
-         main.cpp
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _DEBUG /D _CONSOLE /D _LIB /D _UNICODE /D UNICODE /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TP /analyze- /errorReport:prompt DynamicProgramming.cpp
+         DynamicProgramming.cpp
+     1>f:\github\respository\itcast\praticecpp\praticecpp\dynamicprogramming.cpp(24): warning C4101: “sign”: 未引用的局部变量
        Link:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\PraticeCPP.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\PraticeCPP.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\PraticeCPP.lib" /MACHINE:X86 Debug\main.obj
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\PraticeCPP.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\PraticeCPP.pdb" /SUBSYSTEM:CONSOLE /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\PraticeCPP.lib" /MACHINE:X86 Debug\DynamicProgramming.obj
+         Debug\main.obj
          dlllib.lib
          staticlib.lib
-     1>./dlllib.dll : warning LNK4003: 无效的库格式；已忽略库
-     1>./dlllib.dll : warning LNK4003: 无效的库格式；已忽略库
-     1>./dlllib.dll : warning LNK4003: 无效的库格式；已忽略库
          PraticeCPP.vcxproj -> F:\GitHub\Respository\ItCast\PraticeCPP\Debug\PraticeCPP.exe
      1>已完成生成项目“F:\GitHub\Respository\ItCast\PraticeCPP\PraticeCPP\PraticeCPP.vcxproj”(Build 个目标)的操作。
 
 生成成功。
 
-已用时间 00:00:01.28
+已用时间 00:00:00.97
