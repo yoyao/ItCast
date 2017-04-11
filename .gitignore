@@ -45,3 +45,25 @@ $RECYCLE.BIN/
 Network Trash Folder
 Temporary Items
 .apdisk
+
+# Visual Studio sln
+.sln
+
+#Visual Studio用来保存预编译的头文件 和Intellisense 用的
+.ipch
+
+# .vcxproj.filters 用于项目下文件的虚拟目录
+# .vcxproj.user 是用户的一些相关配置
+.suo
+
+# SQL Server Compact Edition Database File (.sdf)文件，是工程的信息保存成了数据库文件
+.sdf
+
+#log file
+.log
+.tlog
+
+#debug文件夹
+debug
+
+.ilk
