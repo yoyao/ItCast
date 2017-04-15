@@ -120,14 +120,26 @@ void TestLCSubSence()
 	string str2 = "357486782";
 	LCSubSence(str1, str2);
 }
+class Person
+{
 
+};
+// abcde 五件物品
+//重量分别是 22654
+//Capacity 10 
+//6 3 5 4 6
 
 void BackPackQue()
 {
 	int Capacity = 10;
+	int Price[5] = { 6, 3 ,5, 4 ,6 };
+	int Weight[5] = { 2,2,6,5,4 };
+	int Elements[5] = { 'a', 'b', 'c', 'd', 'e' };
 	// 1 3 5
+	for (int i = 0; i < 5; ++i)
+	{
 
-
+	}
 }
 
 int main(int argc, char* argv[])
@@ -135,7 +147,8 @@ int main(int argc, char* argv[])
 	string str1 = "13456778";
 	string str2 = "357486782";
 	TestLCSubSence();
-
+	
+	
 
 	system("pause");
 	return 0;
