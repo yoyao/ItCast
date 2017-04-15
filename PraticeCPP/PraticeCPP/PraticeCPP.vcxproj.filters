@@ -15,10 +15,19 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="main.cpp">
+    <ClCompile Include="DynamicProgramming.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
-    <ClCompile Include="DynamicProgramming.cpp">
+    <ClCompile Include="ConsoleTest.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="LongestCommonSubstirng.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main2.cpp">
+      <Filter>源文件</Filter>
+    </ClCompile>
+    <ClCompile Include="main.cpp">
       <Filter>源文件</Filter>
     </ClCompile>
   </ItemGroup>
@@ -27,6 +36,15 @@
       <Filter>头文件</Filter>
     </ClInclude>
     <ClInclude Include="staticlib.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="ConsoleTest.h">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="DynamicProgramming.hpp">
+      <Filter>头文件</Filter>
+    </ClInclude>
+    <ClInclude Include="LongestCommonSubstirng.hpp">
       <Filter>头文件</Filter>
     </ClInclude>
   </ItemGroup>

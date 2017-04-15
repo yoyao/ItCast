@@ -1,3 +1,5 @@
+ï»¿
+
 #define _CRT_SECURE_NO_WARNINGS
 #include<stdio.h>
 #include<string.h>
@@ -6,420 +8,135 @@
 #include<fstream>
 #include<Windows.h>
 #include<vector>
+#include<socketapi.h>
+#include<Windows.h>
+#include<winsock.h>
 #include"dlllib.h"
 #include"staticlib.h"
 
+
+#include"DynamicProgramming.hpp"
+#include"LongestCommonSubstirng.hpp"
+
+
 using namespace std;
 
-#pragma comment(lib,"./staticlib.lib")
-#pragma comment(lib,"./dlllib.dll")
-
-typedef struct _linknode LinkNode;
-
-struct _linknode{
-	int data;
-	LinkNode* Next;
-};
-
-
-typedef struct _node Node;
-struct _node{
-	Node* Next;
-};
-
-
-//ÄæÖÃ
-void Reverse(LinkNode* head)
+//ç½‘ä¸Šçœ‹åˆ°çš„æ±‚æœ€é•¿å­—ä¸²çš„æ–¹æ³•
+int longest_common_substring(char *str1, char *str2)
 {
-	LinkNode* p_head_tmp = head;
-	LinkNode* p_sec_tmp = head->Next;
-	LinkNode* p_thr = NULL;
-	if (p_sec_tmp != NULL&&p_sec_tmp->Next != NULL)
+	int i, j, k, len1, len2, max, x, y;
+	len1 = strlen(str1);
+	len2 = strlen(str2);
+	int **c = new int*[len1 + 1];
+	for (i = 0; i < len1 + 1; i++)
+		c[i] = new int[len2 + 1];
+	for (i = 0; i < len1 + 1; i++)
+		c[i][0] = 0;        //ç¬¬0åˆ—éƒ½åˆå§‹åŒ–ä¸º0  
+	for (j = 0; j < len2 + 1; j++)
+		c[0][j] = 0;        //ç¬¬0è¡Œéƒ½åˆå§‹åŒ–ä¸º0   
+	max = -1;
+	for (i = 1; i < len1 + 1; i++)
 	{
-		p_thr = p_sec_tmp->Next;
-	}
-
-	while (NULL != p_thr)
-	{
-		p_sec_tmp->Next = p_head_tmp;
-		p_head_tmp = p_sec_tmp;
-		p_sec_tmp = p_thr;
-		p_thr = p_thr->Next;
-	}
-	p_sec_tmp->Next = p_head_tmp;
-	head->Next = NULL;
-}
-//±éÀú
-void Traverse(LinkNode* head)
-{
-	while (NULL != head)
-	{
-		printf("%d ", head->data);
-		head = head->Next;
-	}
-	printf("\n");
-}
-
-
-/*---------------------------------------------------------
-ÅĞ¶ÏÁ½¸öÁ´±íÊÇ·ñÏà½»£¬Ïà½»ÊÇÖ¸Á½¸ö½ÚµãµØÖ·ÏàÍ¬£¬²»ÊÇÖµÏàµÈ¡£
-»ù±¾Ë¼Â·£º
-Èç¹ûÁ½¸öÁ´±íÓĞÏà½»µÄ½Úµã£¬¾ÍÊÇËµ´ÓÏà½»¿ªÊ¼µÄ½ÚµãÖÁ×îºóÒ»¸ö½Úµã£¬µØÖ·¶¼ÊÇÏàÍ¬µÄ¡£¼´ ¶¼Ö¸ÏòÁËÍ¬Ò»¸ö½Úµã¡£
------------------------------------------------------------------------------------------*/
-LinkNode* IsIntersect(LinkNode* head1, LinkNode* head2)
-{
-	LinkNode* p1 = head1, *p2 = head2;
-	int len1 = 0, len2 = 0;
-	while (p1 != NULL)
-	{
-		++len1;
-		p1 = p1->Next;
-	}
-	while (p2!= NULL)
-	{
-		++len2;
-		p2 = p2->Next;
-	}
-	if (p1 != p2)
-	{
-		return NULL;
-	}
-
-	if (len1 == len2)
-	{
-		return head1;
-	}
-	int diff = abs(len1 - len2);
-
-	LinkNode* p_len = head1;
-	LinkNode* p_sec = head2;
-	if (len1 <len2)
-	{
-		p_len = head2;
-		p_sec = head1;
-	}
-	while (diff>0)
-	{
-		p_len = p_len->Next;
-		diff--;
-	}
-	while (p_len != p_sec)
-	{
-		p_len = p_len->Next;
-		p_sec = p_sec->Next;
-	}
-
-	return p_len;
-}
-
-
-LinkNode* DoReverse(LinkNode* front, LinkNode* back)
-{
-	LinkNode* record = NULL;
-	if (back->Next != NULL)
-	{
-		record=DoReverse(back, back->Next);
-	}
-	if (back->Next == NULL)
-	{
-		record = back;
-	} 
-	back->Next = front;
-	front->Next = NULL;
-	
-	
-	return record;
-}
-//µİ¹éÊµÏÖÁ´±íµÄÄæÖÃ
-void RecursionReverse(LinkNode* Head)
-{
-	if (Head == NULL || Head->Next == NULL || Head->Next->Next == NULL)
-	{
-		return;
-	}
-
-	LinkNode* newhead=DoReverse(Head->Next, Head->Next->Next);
-	Head->Next = newhead;
-}
-
-//ÊÇ·ñÓĞ»·
-LinkNode* LinkListIsLoop(LinkNode* Head)
-{
-	LinkNode* sign = NULL;
-	if (Head == NULL || Head->Next == NULL)
-	{
-		return sign;
-	}
-	LinkNode* Slow = Head->Next;
-	LinkNode* Fast = Head->Next;
-
-	while (NULL != Fast->Next&&Slow != NULL)
-	{
-		Slow = Slow->Next;
-		Fast = Fast->Next->Next;
-		if (Slow == Fast)
+		for (j = 1; j < len2 + 1; j++)
 		{
-			sign = Fast;
+			if (str1[i - 1] == str2[j - 1])
+			{
+				//åªéœ€è¦è·Ÿå·¦ä¸Šæ–¹çš„c[i-1][j-1]æ¯”è¾ƒå°±å¯ä»¥äº†  
+				c[i][j] = c[i - 1][j - 1] + 1;
+			}
+			else
+			{
+				//ä¸è¿ç»­çš„æ—¶å€™è¿˜è¦è·Ÿå·¦è¾¹çš„c[i][j-1]ã€ä¸Šè¾¹çš„c[i-1][j]å€¼æ¯”è¾ƒï¼Œè¿™é‡Œä¸éœ€è¦  
+				c[i][j] = 0;
+			}
+			
+			if (c[i][j]>max)
+			{
+				max = c[i][j];
+				x = i;
+				y = j;
+			}
+		}
+	}
+
+
+	for (int k = 0; k < len1; ++k)//ä»1å¼€å§‹æ‰ä¼šæœ‰å·¦ä¸Šè§’ ä»0å¼€å§‹å°±æ²¡æœ‰äº†
+	{
+		for (int h = 0; h < len2; ++h)
+		{
+			cout << c[k][h] << " ";
+		}
+		cout << endl;
+	}
+
+	//è¾“å‡ºå…¬å…±å­ä¸²  
+	char s[1000];
+	k = max;
+	i = x - 1, j = y - 1;
+	s[k--] = '\0';
+	while (i >= 0 && j >= 0)
+	{
+		if (str1[i] == str2[j])
+		{
+			s[k--] = str1[i];
+			i--;
+			j--;
+		}
+		else       //åªè¦æœ‰ä¸€ä¸ªä¸ç›¸ç­‰ï¼Œå°±è¯´æ˜ç›¸ç­‰çš„å…¬å…±å­—ç¬¦æ–­äº†ï¼Œä¸è¿ç»­äº†  
 			break;
-		}
-		/*//´ËÁ½ÌõÓï¾ä¿ÉÒÔ·ÅÉÏÃæÒ²¿ÉÒÔ·ÅÏÂÃæ£¬·ÅÉÏÃæ¿ÉÒÔÉÙÒ»´ÎÑ­»·¡£
-		Slow = Slow->Next;
-		Fast = Fast->Next->Next;
-		*/
 	}
-
-
-	return sign;
+	printf("æœ€é•¿å…¬å…±å­ä¸²ä¸ºï¼š");
+	puts(s);
+	for (i = 0; i < len1 + 1; i++)         //é‡Šæ”¾åŠ¨æ€ç”³è¯·çš„äºŒç»´æ•°ç»„  
+		delete[] c[i];
+	delete[] c;
+	return max;
 }
 
 
-int LinkListLoopLength(LinkNode* Head)
+void TestGoldMine()
 {
-	int len = 0;
-	LinkNode* loop=LinkListIsLoop(Head);
-	if (loop == NULL)
-	{
-		return 0;
-	}
+	//åˆå§‹åŒ–æ•°æ®
+	init();
 
-
-	LinkNode* curloop = loop->Next;
-	while (curloop != loop)
-	{
-		++len;
-		curloop = curloop->Next;
-	}
-
-	return len;
+	//è¾“å‡ºç»™å®špeopleTotalä¸ªäººå’Œnä¸ªé‡‘çŸ¿èƒ½å¤Ÿè·å¾—çš„æœ€å¤§é‡‘å­æ•°ï¼Œå†æ¬¡æé†’ç¼–å·ä»0å¼€å§‹ï¼Œæ‰€ä»¥æœ€åä¸€ä¸ªé‡‘çŸ¿ç¼–å·ä¸ºn-1
+	int MaxGoldCount = 0;
+	//MaxGoldCount = GetMaxGold(peopleTotal, GoldCount - 1);
+	MaxGoldCount = CalculateMaxGolden(100, 4);
+	cout << MaxGoldCount << std::endl;
 }
 
-LinkNode* LinkListSort(LinkNode* Head, LinkNode* Tail, int(*PFUN)(int, int))
+void TestMyLCS()//æœ€é•¿å…¬å…±å­—ä¸²
 {
-	LinkNode*p_fast = Head->Next->Next;
-	LinkNode*p_back = Tail;
-	LinkNode* pcur = Head->Next;
-
-	while (p_fast)
-	{
-		if (PFUN(pcur->data, p_fast->data) > 0)
-		{
-			LinkNode* tmp = pcur->Next;
-			pcur->Next = p_fast->Next;
-		}
-	}
-
-
-	return NULL;
+	string str1 = "1256789";
+	string str2 = "125050673";
+	LCS(str1, str2);
 }
 
-int MyCompare(int a, int b)
+
+void TestLCSubSence()
 {
-	return a - b;
+	string str1 = "13456778";
+	string str2 = "357486782";
+	LCSubSence(str1, str2);
 }
 
 
-/*
-ÄÇÃ´ÔÚÓĞ»·µÄ»ù´¡ÉÏ£¬ÔõÃ´ÕÒµ½Õâ¸ö»·µÄÈë¿ÚÄØ£¬Ò»°ãÍøÉÏÒ²»á¸ø³ö½âÊÍ£¬¿ÉÄÜÊÇÎÒµÄÀí½âÁ¦±È½Ïµ×£¬ÍøÉÏµÄ½âÊÍÖĞ£¬×ÜÊÇÓÃÒÆ¶¯
-
-ÁËs²½£¬ÓÖÊÇ³¤¶ÈµÄ£¬×ÜÊÇÅªµÄÎÒºÜÔÎ£¬ÓÚÊÇ£¬¸ø³öÎÒ×Ô¼ºµÄ½âÊÍºÃÁË£¬ËùÓĞµÄ¶¼ÓÃÒÆ¶¯ÁË¶àÉÙ²½À´ËµÃ÷¡£
-
-×ßÒ»²½µÄÖ¸Õë½Ğslow£¬×ßÁ½²½µÄ½Ğfast¡£
-
-ÏàÓöµÄÊ±ºò£¬slow¹²ÒÆ¶¯ÁËs²½£¬fast¹²ÒÆ¶¯ÁË2s²½£¬Õâ¸öÊÇÏÔ¶øÒ×¼ûµÄ¡£
-
-¶¨ÒåaÈçÏÂ£º Á´±íÍ·ÒÆ¶¯a²½µ½´ïÈë¿Úµã¡£
-
-¶¨ÒåxÈçÏÂ£º Èë¿ÚµãÒÆ¶¯x²½µ½´ïÏàÓöµã¡£
-
-¶¨ÒårÈçÏÂ£º ´Ó»·ÖĞµÄÄ³Ò»µãÒÆ¶¯r²½£¬ÓÖµ½´ïµÄÕâÒ»µã£¬Ò²¾ÍÊÇ×ªÁËÒ»È¦µÄÒâË¼¡£
-
-¶¨ÒåtÈçÏÂ£º¡¡´ÓÏàÓöµãÒÆ¶¯µ½Èë¿ÚµãµÄÒÆ¶¯²½Êı
-
-¶¨ÒåLÈçÏÂ£º ´ÓÁ´±íÍ·ÒÆ¶¯L²½£¬ÓÖµ½´ïÁËÏàÓöµã¡£Ò²¾ÍÊÇ±éÀúÍêÁ´±íÖ®ºó£¬Í¨¹ı×îºóÒ»¸ö½ÚµãµÄÖ¸Õë£¬ÓÖÒÆ¶¯µ½ÁËÁ´±íÖĞµÄÄ³Ò»µã¡£
-
-ÆäÖĞ£Ì¡¡£½¡¡a + r  =  a + x + t
-
-ÄÇÃ´slowºÍfastÏàÓöÁË£¬fast±ØÈ»±Èslow¶à×ßÁËn¸öÈ¦£¬Ò²¾ÍÊÇ n*r ²½£¬ÄÇÃ´
-
-s = a + x
-
-2s = s + n*r £¬ ¿ÉµÃ  s = n*r
-
-½«s=a+x£¬´øÈës =n*r£¬¿ÉµÃ a+x = n*r, Ò²¾ÍÊÇ a+x = (n-1)*r + r ¡¡¡¡
-
-´Ó±íÍ·ÒÆ¶¯µ½Èë¿Úµã£¬ÔÙ´ÓÈë¿ÚµãÒÆ¶¯µ½Èë¿Úµã£¬Ò²¾ÍÊÇÒÆ¶¯ÁËÕû¸öÁ´±íµÄ¾àÀë£¬¼´ÊÇ L =  a + r , ËùÒÔr = L - a
-
-ËùÒÔ   a+x = (n-1)*r + L - a ,   ÓÚÊÇ a  = (n-1)*r + L - a - x = (n-1)*r + t
-
-Ò²¾ÍÊÇËµ£¬´Ó±íÍ·µ½Èë¿ÚµãµÄ¾àÀë£¬µÈÓÚ´ÓÏàÓöµã¼ÌĞø±éÀúÓÖµ½±íÍ·µÄ¾àÀë¡£
-
-ËùÒÔ£¬´Ó±íÍ·ÉèÁ¢Ò»¸öÖ¸Õë£¬´ÓÏàÓöµãÉèÁ¢Ò»¸öÖ¸Õë£¬Á½¸öÍ¬Ê±ÒÆ¶¯£¬±ØÈ»ÄÜ¹»ÔÚÈë¿ÚµãÏàÓö£¬ÕâÑù£¬¾ÍÇó³öÁËÏàÓöµã¡£
-
-
-ÏëÏó1£¬
-aÍ¬ÏòÈÆÈ¦×·¸Ïb,Â·³Ì²îs,ËÙ¶È²îv,Ôò¾­¹ıt=s/v,a×·ÉÏb
-¼ò»¯ÁËÏë£¬¾ÍÊÇbÔ­µØ²»¶¯,aÒÔvµÄËÙ¶ÈÅÜÍês¸úb»ãºÏ¡£
-vÏàµ±ÓÚpqÖ¸ÕëËÙ¶È²î£¨pÂıq¿ì£©£¬sÏàµ±ÓÚpq ¶¼½øÈë»·Ê±£¬qË³Ê±Õëµ½pµÄ¾àÀë¡£
-
-È»¶ø£¬¾ßÌåµ½Á´±í»·Â·£¬Õâ¸öËÙ¶È²î£¬ÓĞ½²¾¿¡£ÔÙ´ÎÏëÏó2£¬
-·ÉĞĞÆå×îºóÒ»¸ö»·½Ú£¬´Ó1×ßµ½6½áÊø£¬÷»×ÓÃ¿´Î¶¼Í¶ÖĞ2£¬ÕâÑùÓÀÔ¶µ½²»ÁËÖÕµã¡£1,3,5,7£¨7Ïàµ±ÓÚ»Øµ½1£©£¬1µ½7Ñ­»·£¬¾ÍÊÇ×ß²»µ½6¡£ËùÒÔËÙ¶È²îVÈ¡1£¬±È½ÏÎÈÍ×£¬ÔõÃ´¶¼ÄÜ×ßµ½ÖÕµã£¨abÄÜÖØºÏ£©¡£
-*/
-//²éÕÒ»·µÄÈë¿Úµã ºÜ¸´ÔÓ ²»Àí½â
-LinkNode* FindLoopEntrance(LinkNode* Head)
+void BackPackQue()
 {
-	LinkNode* loop=NULL;
-  loop=LinkListIsLoop(Head);
-  LinkNode* node = Head->Next;
+	int Capacity = 10;
+	// 1 3 5
 
-  while (node != loop)
-	{
-	  node = node->Next;
-		loop = loop->Next;
-	}
-	return loop;
+
 }
 
-// 5, 4, 1, 9, 6, 3, 7, 10, 2, 11,8
-int Quick_Sort(int arr[],int front,int back)
+int main(int argc, char* argv[])
 {
-	int curval = arr[front];
-	//int pos = front;
-
-	while (front < back)
-	{
-		while (arr[back] > curval &&front < back)
-		{
-			--back;
-		}
-		if (front < back)
-		{
-			arr[front] = arr[back];
-			//arr[front] = ;
-			//pos = back;
-		}
+	string str1 = "13456778";
+	string str2 = "357486782";
+	TestLCSubSence();
 
 
-		while (arr[front] < curval &&front < back)
-		{
-			++front;
-		}
-		if (front < back)
-		{
-			arr[back] = arr[front];
-			//arr[pos] = arr[front + 1];
-			//pos = front + 1;
-		}
-	}
-	
-	arr[front] = curval;
-
-
-	return front;
-}
-
-void DoQuick_Sort(int arr[], int front, int back)
-{
-	if (front <back)
-	{
-		int i = Quick_Sort(arr, front, back);//ÏÈ³ÉÍÚ¿ÓÌîÊı·¨µ÷Õûs[]  
-		DoQuick_Sort(arr, front, i - 1); // µİ¹éµ÷ÓÃ   
-		DoQuick_Sort(arr, i + 1, back);
-	}
-}
-
-void quicksort(int v[], int left, int right){
-	if (left < right){
-		int key = v[left];
-		int low = left;
-		int high = right;
-		while (low < high){
-			while (low < high && v[high] > key){
-				high--;
-			}
-			v[low] = v[high];
-			while (low < high && v[low] < key){
-				low++;
-			}
-			v[high] = v[low];
-		}
-		v[low] = key;
-		quicksort(v, left, low - 1);
-		quicksort(v, low + 1, right);
-	}
-}
-
-void TestLinkList()
-{
-	LinkNode node0;
-	LinkNode node1;
-	LinkNode node2;
-	LinkNode node3;
-	LinkNode node4;
-	LinkNode node5;
-	LinkNode node6;
-	LinkNode node7;
-	LinkNode node8;
-
-	node0 = { 4, &node1 };
-	node1 = { 1, &node2 };
-	node2 = { 2, &node3 };
-	node3 = { 7, &node4 };
-	node4 = { 8, &node5 };
-	node5 = { 5, &node6 };
-	node6 = { 9, &node7 };
-	node7 = { 3, &node8 };
-    node8 = { 6, &node4 };
-
-
-	LinkNode head = { -1, &node0 };
-	//LinkNode* entrance=FindLoopEntrance(&head);
-	
-	
-	Traverse(&node0);
-	/*Reverse(&node1);
-	Traverse(&node5);
-	LinkNode* inters=IsIntersect(&node6, &node0);
-	*/
-}
-
-
-typedef int(*MYADD)(int, int);
-
-struct mystru{
-	int operator()(int a, int b)
-	{
-		return a - b;
-	}
-};
-
-
-
-
-
-int main01()
-{
-	struct mystru myst;
-	int a = myst(4, 2);
-	int ret = StaticSum(45, 54);
-	ret = DllSum(65, 3);
-	LPCWSTR path = L"./dlllib.dll";
- 	HMODULE handle= LoadLibrary(path);
-	LPCSTR funname = "DllSum";
-	MYADD myadd = (MYADD)GetProcAddress(handle, funname);
-
-	ret = myadd(1, 2);
-
-	std::cout << ret << std::endl;
-
-	TestLinkList();
-
-	int arr_int[11] = { 5, 4, 1, 9, 6, 3, 7, 10, 2, 11,8 };
-	DoQuick_Sort(arr_int, 0, 10);
-	for (int i = 0; i < 11; ++i)
-	{
-		printf("%d ", arr_int[i]);
-	}
-	printf("\n");
-	//system("pause");
-	return EXIT_SUCCESS;
+	system("pause");
+	return 0;
 }

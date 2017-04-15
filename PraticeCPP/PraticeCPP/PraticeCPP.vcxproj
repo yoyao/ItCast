@@ -78,11 +78,17 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConsoleTest.cpp" />
     <ClCompile Include="DynamicProgramming.cpp" />
+    <ClCompile Include="LongestCommonSubstirng.cpp" />
+    <ClCompile Include="main2.cpp" />
     <ClCompile Include="main.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConsoleTest.h" />
     <ClInclude Include="dlllib.h" />
+    <ClInclude Include="DynamicProgramming.hpp" />
+    <ClInclude Include="LongestCommonSubstirng.hpp" />
     <ClInclude Include="staticlib.h" />
   </ItemGroup>
   <ItemGroup>
