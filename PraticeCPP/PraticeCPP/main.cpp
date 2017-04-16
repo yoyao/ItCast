@@ -129,26 +129,60 @@ class Person
 //Capacity 10 
 //6 3 5 4 6
 
-void BackPackQue()
-{
-	int Capacity = 10;
-	int Price[5] = { 6, 3 ,5, 4 ,6 };
-	int Weight[5] = { 2,2,6,5,4 };
-	int Elements[5] = { 'a', 'b', 'c', 'd', 'e' };
-	// 1 3 5
-	for (int i = 0; i < 5; ++i)
-	{
 
+/*
+01背包问题
+此问题是最简单的问题 每个物品只需要放一次，要是可以变化的放就是完全背包问题。
+*/
+
+static int Capacitys[5] = { 2,2,6,5,4};
+static int Values[5] = { 6, 3, 5, 4, 6 };
+static int Note[20][20];//记录第几个物品和剩余多少容量的二维数组。即 备忘录
+//                     第几个物品 剩余多少容量
+
+
+/*
+处理某一个物品有两种选择，放或者不放，那么放就会有个最大的值，记录下来。
+不放也会有个最大值，比较一下，最大的返回。
+下一个背包同样是这个问题，同样处理。
+*/
+int CalculateMaxPrice(int index, int capacity)
+{
+	int price = 0;
+	if (Capacitys[index] > capacity)//如果当前的索引的物品的容量大于了剩余容量,那就是装不下了，返回0 或者已经处理完了所有物品
+	{
+		return 0;
 	}
+	if (index<0)//如果当前的索引的物品的容量大于了剩余容量,那就是装不下了，返回0 或者已经处理完了所有物品
+	{
+		return 0;
+	}
+	//如果备忘录内有记录
+	if (Note[index][capacity]>0)
+	{
+		return Note[index][capacity];
+	}
+
+
+	//能装下，那就比较装它和不装它谁比较大
+	//CalculateMaxPrice(index + 1, capacity-capacity[index])+values[index]//装它
+	// CalculateMaxPrice( index+1,capacity) //不装它
+	price = max(CalculateMaxPrice(index -1, capacity - Capacitys[index]) + Values[index], CalculateMaxPrice(index -1, capacity));
+	
+	Note[index][capacity] = price;
+
+	return price;
 }
+
 
 int main(int argc, char* argv[])
 {
 	string str1 = "13456778";
 	string str2 = "357486782";
-	TestLCSubSence();
-	
-	
+	//TestLCSubSence();
+	string str = R"(askdkl\nasdg)";//原始字符串
+
+	int price=CalculateMaxPrice(4,10);
 
 	system("pause");
 	return 0;
