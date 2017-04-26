@@ -175,7 +175,7 @@ int CalculateMaxPrice(int index, int capacity)
 }
 
 
-int main(int argc, char* argv[])
+int main3(int argc, char* argv[])
 {
 	string str1 = "13456778";
 	string str2 = "357486782";
