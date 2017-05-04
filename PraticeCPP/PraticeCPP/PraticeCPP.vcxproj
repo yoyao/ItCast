@@ -80,9 +80,11 @@
   <ItemGroup>
     <ClCompile Include="ConsoleTest.cpp" />
     <ClCompile Include="DynamicProgramming.cpp" />
+    <ClCompile Include="exam.cpp" />
     <ClCompile Include="LongestCommonSubstirng.cpp" />
     <ClCompile Include="main2.cpp" />
-    <ClCompile Include="main.cpp" />
+    <ClCompile Include="main3.cpp" />
+    <ClCompile Include="Reflect.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="ConsoleTest.h" />

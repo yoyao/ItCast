@@ -1,8 +1,18 @@
-﻿生成启动时间为 2017/4/11 19:06:45。
+﻿生成启动时间为 2017/4/20 14:34:23。
      1>项目“F:\GitHub\Respository\ItCast\PraticeCPP\EmployeeManage\EmployeeManage.vcxproj”在节点 3 上(Build 个目标)。
      1>ClCompile:
-         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D MEMWATCH /D MW_STDIO /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt main.c
+         D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D MEMWATCH /D MW_STDIO /D _MBCS /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Fo"Debug\\" /Fd"Debug\vc120.pdb" /Gd /TC /analyze- /errorReport:prompt Employee.c LinkList.c LinkStack.c Login.c LoginLog.c main.c MyTools.c Tools\cJSON.c Tools\memwatch.c
+         memwatch.c
+         cJSON.c
+         MyTools.c
          main.c
+         LoginLog.c
+         Login.c
+     1>f:\github\respository\itcast\praticecpp\employeemanage\login.c(57): warning C4244: “=”: 从“double”转换到“time_t”，可能丢失数据
+         LinkStack.c
+         LinkList.c
+         Employee.c
+         正在生成代码...
        Link:
          D:\Program Files (x86)\Microsoft Visual Studio 12.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.exe" /INCREMENTAL /NOLOGO kernel32.lib user32.lib gdi32.lib winspool.lib comdlg32.lib advapi32.lib shell32.lib ole32.lib oleaut32.lib uuid.lib odbc32.lib odbccp32.lib /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /DEBUG /PDB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.pdb" /TLBID:1 /DYNAMICBASE /NXCOMPAT /IMPLIB:"F:\GitHub\Respository\ItCast\PraticeCPP\Debug\EmployeeManage.lib" /MACHINE:X86 Debug\Employee.obj
          Debug\LinkList.obj
@@ -18,4 +28,4 @@
 
 生成成功。
 
-已用时间 00:00:00.72
+已用时间 00:00:01.29

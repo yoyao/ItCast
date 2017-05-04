@@ -48,6 +48,7 @@ Temporary Items
 
 # Visual Studio sln
 .sln
+.pdb
 
 #Visual Studio用来保存预编译的头文件 和Intellisense 用的
 .ipch
