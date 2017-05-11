@@ -1,0 +1,12 @@
+INPUT(
+./debug\main.o
+./debug\dialoglist.o
+./debug\cJSON.o
+./debug\chatdialog.o
+./debug\user.o
+./debug\chatmessage.o
+./debug\qrc_res.o
+./debug\moc_dialoglist.o
+./debug\moc_chatdialog.o
+./debug\moc_chatmessage.o
+);

@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\dialoglist.o
+./release\cJSON.o
+./release\chatdialog.o
+./release\user.o
+./release\chatmessage.o
+./release\qrc_res.o
+./release\moc_dialoglist.o
+./release\moc_chatdialog.o
+./release\moc_chatmessage.o
+);
