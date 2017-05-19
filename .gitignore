@@ -60,6 +60,24 @@ Temporary Items
 # SQL Server Compact Edition Database File (.sdf)文件，是工程的信息保存成了数据库文件
 .sdf
 
+
+# MSVC project files:
+*.sln
+*.vcxproj
+*.filters
+*.user
+*.sdf
+*.opensdf
+*.suo
+
+# MSVC build files:
+*.lib
+*.obj
+*.tlog/
+*.pdb
+
+
+
 #log file
 .log
 .tlog
