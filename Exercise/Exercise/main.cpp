@@ -19,8 +19,8 @@ union U_Aa
 };
 
 U_Aa a;
-#define TONAME(x) y##x//˫#�����Ӳ�������������
-#define TESTT(y) #y//�ַ�����
+#define TONAME(x) y##x//双#是连接参数和其他数据
+#define TESTT(y) #y//字符串化
 #define BUFFSIZE 256
 #define NAMETOSTR(x) #x
 #define ADDRTOSTR(x)  "arr"#x
@@ -37,7 +37,7 @@ char* str_str_(char source[], char search[])
 	while (*source)
 	{
 		char* tmp = source;
-		while (*search && *tmp&&!(*tmp - *search))//����֮�� �����ַ��������ܵ���� ���������ַ����Ϊ0 ��˵����� ����!�Ϳ��Խ�ѭ��
+		while (*search && *tmp&&!(*tmp - *search))//重中之重 两个字符串都不能到最后 并且两个字符相减为0 就说明相等 加上!就可以进循环
 		{
 			++tmp;
 			++search;
@@ -58,7 +58,7 @@ char* str_str_(char source[], char search[])
 int main01(int argc, char* argv[])
 {
 
-    #pragma region ָ��*תint��ϰ �ڴ�Ļ���
+    #pragma region 指针*转int练习 内存的划分
     #if 0
 	char str[200] = "wangfang love  money  love  sunshine h";
 	char s_search[] = "end";
@@ -80,7 +80,7 @@ int main01(int argc, char* argv[])
 	//StrAppendAtStr(str, "love", s_search,s_Out);
 	//std::cout << s_Out << std::endl;
 
-	// ţ����˼����
+	// 牛哥让思考的
 	/*
 	int array[] = { 1, 2, 3, 4, 5 };
 	int t = ((int)array + 1);
@@ -105,7 +105,7 @@ int main01(int argc, char* argv[])
 	
 	int TONAME(2) = 45;
 	std::cout << TONAME(2) << std::endl;
-	string str1=TESTT(gjd);//�ַ�����
+	string str1=TESTT(gjd);//字符串化
 	int r=rand();
 	char buf[BUFFSIZE] = { " wangfang  like  money  like sunshine " };
 	char result[BUFFSIZE];
@@ -141,7 +141,7 @@ struct _person{
 typedef struct _person Person;
 
 
-//��д�ṹ�� �����Ƿ��ܶԵȶ�д
+//读写结构体 看看是否能对等读写
 void WriteStruct()
 {
 	time_t time_;
@@ -152,12 +152,12 @@ void WriteStruct()
 	{
     
      	memset(arr_person[i].Address, 0, 17);
-		strcpy(arr_person[i].Address,"�����滮��ɣ�ĸ�");
+		strcpy(arr_person[i].Address,"开发规划阿桑的歌");
 		memset(arr_person[i].Name, 0, 13);
-		strcpy(arr_person[i].Name, "���������ͬ");
+		strcpy(arr_person[i].Name, "过几天就如同");
 		
-		//arr_person[i].Address="������������";
-		//arr_person[i].Name="���ַܾ�ڷ�";
+		//arr_person[i].Address="阿里贷款机构拉";
+		//arr_person[i].Name="房管局封口费";
 		arr_person[i].Score = rand();
 		arr_person[i].Age = rand() % 100;
 	}
@@ -169,7 +169,7 @@ void WriteStruct()
 		printf("file open failed!\n");
 		return;
 	}
-	//fwrite("�����ÿͽ������Ϲ���", 1, strlen("�����ÿͽ������Ϲ���"), file);
+	//fwrite("啊跟旅客谨防啊老公会", 1, strlen("啊跟旅客谨防啊老公会"), file);
 
 	fwrite(&arr_person, sizeof(arr_person), 1, file);
 	
@@ -201,7 +201,7 @@ void ReadStruct()
 	fclose(file);
 }
 
-int func(int x)//��x�Ķ����Ʊ�ʾ���ж��ٸ�1
+int func(int x)//求x的二进制表示中有多少个1
 {
 	int countx = 0;
 	while (x)
@@ -259,7 +259,7 @@ int main(int argc, char* argv[])
 	//int result = JieCheng(5);
 	//JieChengNum(145);
 
-	//LCS��������������ַ���������Ӵ�������
+	//LCS问题就是求两个字符串最长公共子串的问题
 	char* substr= LCS("fdfljlkubbbbbbbeels","askdjglgbbbbbbbeelkjfi");
 	std::cout << substr << std::endl;
 	
@@ -271,4 +271,526 @@ int main(int argc, char* argv[])
 
 
 	return EXIT_SUCCESS;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+//生成登陆请求的JSON
+void CSelDesktop::GenerateLoginJson(std::string& json)
+{
+	/*
+	{"agentreq":{"loginDesktop":{"username":"aaa","password":"123"}}}
+	*/
+	json.clear();
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(json_desktops, root))
+	{
+		return;
+	}
+
+	int index = GetSelectedItem();
+	if (index < 0)
+	{
+		return;
+	}
+	if (strcmp(root[index]["error"].asCString(), "0") != 0)
+	{
+		return;
+	}
+
+	const char *tmpstr = NULL;
+
+	json.append(R"({"agentreq":)");
+	json.append(R"({"handleDesktop":)");
+	json.append(R"({"username":")");
+
+	//声明标识符 
+	USES_CONVERSION;
+	//调用函数，T2A和W2A均支持ATL和MFC中的字符转换 
+	tmpstr = T2A(m_pDesktop->uname);
+
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("password":")");
+	tmpstr = T2A(m_pDesktop->pwd);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("timespan":")");
+	char timestr[64] = { 0 };
+	itoa(time(NULL), timestr, 10);
+	json.append(timestr);
+	json.append("\",");
+
+	json.append(R"("host":")");
+	//tmpstr = root[index]["ip"].asCString();
+	tmpstr = T2A(m_pDesktop->hostip);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("cversion":")");
+	tmpstr = T2A(m_pDesktop->version);
+	json.append(tmpstr);
+	json.append("\"}}}");
+
+}
+//生成开机请求的JSON
+void CSelDesktop::GeneratePoweronJson(std::string& json)
+{
+	/*
+	开机
+	{"agentreq":{"handleDesktop": {"uuid":"uuid","operation":"start"}}}
+	*/
+	json.clear();
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(json_desktops, root))
+	{
+		return;
+	}
+
+	int index = GetSelectedItem();
+	if (index < 0)
+	{
+		return;
+	}
+	if (strcmp(root[index]["error"].asCString(), "0") != 0)
+	{
+		return;
+	}
+
+	const char *tmpstr = NULL;
+
+	json.append(R"({"agentreq":)");
+	json.append(R"({"handleDesktop":)");
+	json.append(R"({"username":")");
+	//声明标识符 
+	USES_CONVERSION;
+
+	//调用函数，T2A和W2A均支持ATL和MFC中的字符转换 
+	tmpstr = T2A(m_pDesktop->uname);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("password":")");
+	tmpstr = T2A(m_pDesktop->pwd);
+	json.append(tmpstr);
+	json.append("\",");
+
+	//uuid
+	json.append(R"("uuid":")");
+	//CString muuid;
+	//m_pDesktop->GetUUID(muuid);
+	//tmpstr = T2A(muuid);
+	tmpstr = root[index]["uuid"].asCString();
+	json.append(tmpstr);
+	json.append("\",");
+
+	//操作
+	json.append(R"("operation":"start",)");
+	//时间戳
+	json.append(R"("timespan":")");
+	char timestr[64] = { 0 };
+	itoa(time(NULL), timestr, 10);
+	json.append(timestr);
+	json.append("\",");
+	//本地IP
+	json.append(R"("host":")");
+	//tmpstr = root[index]["ip"].asCString();
+	tmpstr = T2A(m_pDesktop->hostip);
+	json.append(tmpstr);
+	json.append("\",");
+	//客户端版本
+	json.append(R"("cversion":")");
+	tmpstr = T2A(m_pDesktop->version);
+	json.append(tmpstr);
+	json.append("\"}}}");
+
+}
+//生成关机请求的JSON
+void CSelDesktop::GenerateShutdownJson(std::string& json)
+{
+	/*
+	关机
+	{"agentreq":{"handleDesktop":{"uuid":"uuid","operation":"close"}}}
+	*/
+
+	json.clear();
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(json_desktops, root))
+	{
+		return;
+	}
+
+	int index = GetSelectedItem();
+	if (index < 0)
+	{
+		return;
+	}
+	if (strcmp(root[index]["error"].asCString(), "0") != 0)
+	{
+		return;
+	}
+
+	const char *tmpstr = NULL;
+
+	json.append(R"({"agentreq":)");
+	json.append(R"({"handleDesktop":)");
+	json.append(R"({"username":")");
+	//声明标识符 
+	USES_CONVERSION;
+
+	//调用函数，T2A和W2A均支持ATL和MFC中的字符转换 
+	tmpstr = T2A(m_pDesktop->uname);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("password":")");
+	tmpstr = T2A(m_pDesktop->pwd);
+	json.append(tmpstr);
+	json.append("\",");
+
+	//uuid
+	json.append(R"("uuid":")");
+	//CString muuid;
+	//m_pDesktop->GetUUID(muuid);
+	//tmpstr = T2A(muuid);
+	tmpstr = root[index]["uuid"].asCString();
+	json.append(tmpstr);
+	json.append("\",");
+
+	//操作
+	json.append(R"("operation":"close",)");
+	//时间戳
+	json.append(R"("timespan":")");
+	char timestr[64] = { 0 };
+	itoa(time(NULL), timestr, 10);
+	json.append(timestr);
+	json.append("\",");
+	//本地IP
+	json.append(R"("host":")");
+	//tmpstr = root[index]["ip"].asCString();
+	tmpstr = T2A(m_pDesktop->hostip);
+	json.append(tmpstr);
+	json.append("\",");
+	//客户端版本
+	json.append(R"("cversion":")");
+	tmpstr = T2A(m_pDesktop->version);
+	json.append(tmpstr);
+	json.append("\"}}}");
+}
+//生成重启请求的JSON 
+void CSelDesktop::GenerateRestartJson(std::string& json)
+{
+	/*
+	重启
+	{"agentreq":{"handleDesktop":{"uuid":"uuid","operation":"restart"}}}
+	*/
+	json.clear();
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(json_desktops, root))
+	{
+		return;
+	}
+
+	int index = GetSelectedItem();
+	if (index < 0)
+	{
+		return;
+	}
+	if (strcmp(root[index]["error"].asCString(), "0") != 0)
+	{
+		return;
+	}
+
+	const char *tmpstr = NULL;
+
+	json.append(R"({"agentreq":)");
+	json.append(R"({"handleDesktop":)");
+	json.append(R"({"username":")");
+	//声明标识符 
+	USES_CONVERSION;
+
+	//调用函数，T2A和W2A均支持ATL和MFC中的字符转换 
+	tmpstr = T2A(m_pDesktop->uname);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("password":")");
+	tmpstr = T2A(m_pDesktop->pwd);
+	json.append(tmpstr);
+	json.append("\",");
+
+	//uuid
+	json.append(R"("uuid":")");
+	//CString muuid;
+	//m_pDesktop->GetUUID(muuid);
+	//tmpstr = T2A(muuid);
+	tmpstr = root[index]["uuid"].asCString();
+	json.append(tmpstr);
+	json.append("\",");
+
+	//操作
+	json.append(R"("operation":"restart",)");
+	//时间戳
+	json.append(R"("timespan":")");
+	char timestr[64] = { 0 };
+	itoa(time(NULL), timestr, 10);
+	json.append(timestr);
+	json.append("\",");
+	//本地IP
+	json.append(R"("host":")");
+	//tmpstr = root[index]["ip"].asCString();
+	tmpstr = T2A(m_pDesktop->hostip);
+	json.append(tmpstr);
+	json.append("\",");
+	//客户端版本
+	json.append(R"("cversion":")");
+	tmpstr = T2A(m_pDesktop->version);
+	json.append(tmpstr);
+	json.append("\"}}}");
+
+
+}
+//生成强制关机请求的JSON
+void CSelDesktop::GenerateForceCloseJson(std::string& json)
+{
+	/*
+	强制关机
+	{"agentreq":{"handleDesktop":{"uuid":"uuid","operation":"forceClose"}}}
+	*/
+	json.clear();
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(json_desktops, root))
+	{
+		return;
+	}
+
+	int index = GetSelectedItem();
+	if (index < 0)
+	{
+		return;
+	}
+	if (strcmp(root[index]["error"].asCString(), "0") != 0)
+	{
+		return;
+	}
+
+	const char *tmpstr = NULL;
+
+	json.append(R"({"agentreq":)");
+	json.append(R"({"handleDesktop":)");
+	json.append(R"({"username":")");
+	//声明标识符 
+	USES_CONVERSION;
+
+	//调用函数，T2A和W2A均支持ATL和MFC中的字符转换 
+	tmpstr = T2A(m_pDesktop->uname);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("password":")");
+	tmpstr = T2A(m_pDesktop->pwd);
+	json.append(tmpstr);
+	json.append("\",");
+
+	//uuid
+	json.append(R"("uuid":")");
+	//CString muuid;
+	//m_pDesktop->GetUUID(muuid);
+	//tmpstr = T2A(muuid);
+	tmpstr = root[index]["uuid"].asCString();
+	json.append(tmpstr);
+	json.append("\",");
+
+	//操作
+	json.append(R"("operation":"forceClose",)");
+	//时间戳
+	json.append(R"("timespan":")");
+	char timestr[64] = { 0 };
+	itoa(time(NULL), timestr, 10);
+	json.append(timestr);
+	json.append("\",");
+	//本地IP
+	json.append(R"("host":")");
+	//tmpstr = root[index]["ip"].asCString();
+	tmpstr = T2A(m_pDesktop->hostip);
+	json.append(tmpstr);
+	json.append("\",");
+	//客户端版本
+	json.append(R"("cversion":")");
+	tmpstr = T2A(m_pDesktop->version);
+	json.append(tmpstr);
+	json.append("\"}}}");
+}
+//生成暂停请求的JSON
+void CSelDesktop::GeneratePauseJson(std::string& json)
+{
+	/*
+	暂停
+	{"agentreq":{"handleDesktop":{"uuid":"uuid","operation":"pause"}}}
+	*/
+
+	json.clear();
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(json_desktops, root))
+	{
+		return;
+	}
+
+	int index = GetSelectedItem();
+	if (index < 0)
+	{
+		return;
+	}
+	if (strcmp(root[index]["error"].asCString(), "0") != 0)
+	{
+		return;
+	}
+
+	const char *tmpstr = NULL;
+
+	json.append(R"({"agentreq":)");
+	json.append(R"({"handleDesktop":)");
+	json.append(R"({"username":")");
+	//声明标识符 
+	USES_CONVERSION;
+
+	//调用函数，T2A和W2A均支持ATL和MFC中的字符转换 
+	tmpstr = T2A(m_pDesktop->uname);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("password":")");
+	tmpstr = T2A(m_pDesktop->pwd);
+	json.append(tmpstr);
+	json.append("\",");
+
+	//uuid
+	json.append(R"("uuid":")");
+	//CString muuid;
+	//m_pDesktop->GetUUID(muuid);
+	//tmpstr = T2A(muuid);
+	tmpstr = root[index]["uuid"].asCString();
+	json.append(tmpstr);
+	json.append("\",");
+
+	//操作
+	json.append(R"("operation":"pause",)");
+	//时间戳
+	json.append(R"("timespan":")");
+	char timestr[64] = { 0 };
+	itoa(time(NULL), timestr, 10);
+	json.append(timestr);
+	json.append("\",");
+	//本地IP
+	json.append(R"("host":")");
+	//tmpstr = root[index]["ip"].asCString();
+	tmpstr = T2A(m_pDesktop->hostip);
+	json.append(tmpstr);
+	json.append("\",");
+	//客户端版本
+	json.append(R"("cversion":")");
+	tmpstr = T2A(m_pDesktop->version);
+	json.append(tmpstr);
+	json.append("\"}}}");
+
+}
+//生成恢复请求的JSON
+void CSelDesktop::GenerateUnPauseJson(std::string& json)
+{
+	/*
+	恢复
+	{"agentreq":{"handleDesktop":{"uuid":"uuid","operation":"unpause"}}}
+	*/
+
+	json.clear();
+	Json::Reader reader;
+	Json::Value root;
+	if (!reader.parse(json_desktops, root))
+	{
+		return;
+	}
+
+	int index = GetSelectedItem();
+	if (index < 0)
+	{
+		return;
+	}
+	if (strcmp(root[index]["error"].asCString(), "0") != 0)
+	{
+		return;
+	}
+
+	const char *tmpstr = NULL;
+
+	json.append(R"({"agentreq":)");
+	json.append(R"({"handleDesktop":)");
+	json.append(R"({"username":")");
+	//声明标识符 
+	USES_CONVERSION;
+
+	//调用函数，T2A和W2A均支持ATL和MFC中的字符转换 
+	tmpstr = T2A(m_pDesktop->uname);
+	json.append(tmpstr);
+	json.append("\",");
+
+	json.append(R"("password":")");
+	tmpstr = T2A(m_pDesktop->pwd);
+	json.append(tmpstr);
+	json.append("\",");
+
+	//uuid
+	json.append(R"("uuid":")");
+	//CString muuid;
+	//m_pDesktop->GetUUID(muuid);
+	//tmpstr = T2A(muuid);
+	tmpstr = root[index]["uuid"].asCString();
+	json.append(tmpstr);
+	json.append("\",");
+
+	//操作
+	json.append(R"("operation":"unpause",)");
+	//时间戳
+	json.append(R"("timespan":")");
+	char timestr[64] = { 0 };
+	itoa(time(NULL), timestr, 10);
+	json.append(timestr);
+	json.append("\",");
+	//本地IP
+	json.append(R"("host":")");
+	tmpstr = T2A(m_pDesktop->hostip);
+	json.append(tmpstr);
+	json.append("\",");
+	//客户端版本
+	json.append(R"("cversion":")");
+	tmpstr = T2A(m_pDesktop->version);
+	json.append(tmpstr);
+	json.append("\"}}}");
+
 }
